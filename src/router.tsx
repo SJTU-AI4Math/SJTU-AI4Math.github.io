@@ -7,13 +7,14 @@ import {
 } from '@tanstack/react-router'
 import { AppLayout } from './layout/AppLayout'
 import { EmptyPage } from './pages/EmptyPage'
+import { HomePage } from './pages/HomePage'
 
 const rootRoute = createRootRoute({ component: AppLayout })
 
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/',
-  component: EmptyPage,
+  component: HomePage,
 })
 
 const summerSchoolRoute = createRoute({

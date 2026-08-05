@@ -32,3 +32,5 @@ The production build creates both `dist/index.html` and `dist/404.html`, allowin
 ## Brand assets
 
 The light and dark logo variants in `public/brand/` come from [`SJTU-AI4Math/SNL-Doc-Extension`](https://github.com/SJTU-AI4Math/SNL-Doc-Extension).
+
+Original cat photographs are retained in `assets/source/`. Optimized WebP derivatives in `public/img/` are used by the website so the Pages artifact stays small.

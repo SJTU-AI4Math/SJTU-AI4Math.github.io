@@ -14,6 +14,13 @@ const resources = {
         switchToDark: '切换到深色模式',
         switchToLight: '切换到浅色模式',
       },
+      home: {
+        screenLabel: '校园猫屏风',
+        dayCatAlt: '白日校园猫',
+        nightCatAlt: '夜间校园猫',
+        publications: '论文发表',
+        emptyPublicationCard: '论文占位卡片',
+      },
     },
   },
   en: {
@@ -24,6 +31,13 @@ const resources = {
         switchToChinese: '切换到中文',
         switchToDark: 'Switch to dark mode',
         switchToLight: 'Switch to light mode',
+      },
+      home: {
+        screenLabel: 'Campus cat screen',
+        dayCatAlt: 'Campus cat by day',
+        nightCatAlt: 'Campus cat at night',
+        publications: 'Publications',
+        emptyPublicationCard: 'Empty publication card',
       },
     },
   },
