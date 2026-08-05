@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { Card } from '../components/Card'
 import { useTheme } from '../theme/theme-context'
 
 export function HomePage() {
@@ -27,9 +28,10 @@ export function HomePage() {
           <span className="section-kicker" aria-hidden="true">01</span>
           <h1 id="publications-title">{t('home.publications')}</h1>
         </div>
-        <article
+        <Card
           className="publication-card publication-card-empty"
-          aria-label={t('home.emptyPublicationCard')}
+          tone="neutral"
+          ariaLabel={t('home.emptyPublicationCard')}
         />
       </section>
     </div>

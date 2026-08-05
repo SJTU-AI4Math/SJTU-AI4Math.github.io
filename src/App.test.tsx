@@ -1,10 +1,10 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { App } from './App'
 
 describe('application shell', () => {
-  it('renders the shared navigation on the 2026 summer school route', async () => {
+  it('renders the complete 2026 summer school plan and venue', async () => {
     render(<App initialEntries={['/summer-school/2026']} />)
 
     expect(await screen.findByRole('link', { name: 'SJTU AI4Math' })).toBeInTheDocument()
@@ -12,7 +12,44 @@ describe('application shell', () => {
       'href',
       '/summer-school/2026',
     )
-    expect(screen.getByRole('main')).toBeEmptyDOMElement()
+    expect(screen.getByRole('heading', { level: 1, name: '2026 暑期学校' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '日程安排' })).toBeInTheDocument()
+
+    const august24 = screen.getByRole('article', { name: '8 月 24 日' })
+    expect(within(august24).getByText('类型论')).toBeInTheDocument()
+    expect(within(august24).getByText('光彪楼 206')).toBeInTheDocument()
+
+    expect(screen.getByRole('article', { name: '类型论' })).toHaveTextContent('刘云天（猫猫）')
+    expect(screen.getByRole('article', { name: '智能体框架搭建' })).toBeInTheDocument()
+    expect(screen.getByRole('img', { name: '上海交通大学校园地图' })).toHaveAttribute(
+      'src',
+      '/img/SJTUmap.webp',
+    )
+    expect(screen.getByRole('link', { name: '打开方块交大地图' })).toHaveAttribute(
+      'href',
+      'https://map.sjtu.edu.cn/voxel#world',
+    )
+    expect(screen.getByText(/Lean 4 安装问题尽量在暑校开始前解决/)).toBeInTheDocument()
+    expect(screen.getByText(/其中部分（尤其是元编程部分）课题也许是相当困难的/)).toBeInTheDocument()
+    expect(screen.getByText(/也许这些工作会为你的学术生涯带来转变/)).toBeInTheDocument()
+    expect(screen.getByText('课题在 API 预算范围内不限制 AI 使用，但建议 Vibe Coding 成果配合适当文档。')).toBeInTheDocument()
+  })
+
+  it('translates the summer school navigation and section headings', async () => {
+    const user = userEvent.setup()
+    render(<App initialEntries={['/summer-school/2026']} />)
+
+    await screen.findByRole('heading', { name: '2026 暑期学校' })
+    await user.click(screen.getByRole('button', { name: 'Switch to English' }))
+
+    expect(screen.getByRole('heading', { level: 1, name: '2026 Summer School' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Schedule' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Courses' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Projects' })).toBeInTheDocument()
+    expect(screen.getByRole('article', { name: 'August 24' })).toHaveTextContent('Type Theory')
+    const venueCard = screen.getByRole('article', { name: 'Venues & Campus Map' })
+    expect(within(venueCard).getByText('Guangbiao Building, Room 206')).toBeInTheDocument()
+    expect(within(venueCard).getByText('Science Buildings 5–6, Room 300')).toBeInTheDocument()
   })
 
   it('renders the day cat screen and an empty publications card on Home', async () => {
