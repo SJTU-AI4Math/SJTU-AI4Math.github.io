@@ -4,19 +4,51 @@ import { useTheme } from '../theme/theme-context'
 
 const STARE_SWITCH_COUNT = 3
 const STARE_SWITCH_WINDOW_MS = 1_000
+const CAT_IMAGE_SOURCES = [
+  '/img/day_cat.webp',
+  '/img/night_cat.webp',
+  '/img/cat_stare.webp',
+] as const
 
 export function HomePage() {
   const { t } = useTranslation()
   const { theme } = useTheme()
   const isDark = theme === 'dark'
   const [isStareLocked, setIsStareLocked] = useState(false)
+  const [areCatsReady, setAreCatsReady] = useState(false)
   const previousTheme = useRef(theme)
   const themeSwitchTimes = useRef<number[]>([])
+  const preloadedCats = useRef<HTMLImageElement[]>([])
+
+  useEffect(() => {
+    let active = true
+    const images = CAT_IMAGE_SOURCES.map(async (source) => {
+      const image = new Image()
+      image.decoding = 'async'
+      image.fetchPriority = source === '/img/cat_stare.webp' ? 'high' : 'auto'
+      image.src = source
+      await image.decode()
+      return image
+    })
+    void Promise.all(images).then((decodedImages) => {
+      if (active) {
+        preloadedCats.current = decodedImages
+        setAreCatsReady(true)
+      }
+    }).catch(() => undefined)
+    return () => {
+      active = false
+    }
+  }, [])
 
   useEffect(() => {
     if (previousTheme.current === theme) return
     previousTheme.current = theme
     if (isStareLocked) return
+    if (!areCatsReady) {
+      themeSwitchTimes.current = []
+      return
+    }
 
     const now = performance.now()
     themeSwitchTimes.current = [
@@ -24,7 +56,7 @@ export function HomePage() {
       now,
     ]
     if (themeSwitchTimes.current.length >= STARE_SWITCH_COUNT) setIsStareLocked(true)
-  }, [isStareLocked, theme])
+  }, [areCatsReady, isStareLocked, theme])
 
   const catSrc = isStareLocked
     ? '/img/cat_stare.webp'

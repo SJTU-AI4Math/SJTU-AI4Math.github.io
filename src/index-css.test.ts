@@ -115,3 +115,15 @@ describe('summer school side navigation', () => {
     expect(declaration(blockIn(extremelyShortLandscape, '.summer-page-nav'), 'position')).toBe('static')
   })
 })
+
+describe('summer school SNL constants', () => {
+  it('styles course labels with the constant color instead of the red site accent', () => {
+    const label = block('.schedule-course-snl')
+    const focus = block('.schedule-course-snl:focus-visible')
+
+    expect(declaration(label, 'border')).toContain('var(--snl-const)')
+    expect(declaration(label, 'background')).toBe('var(--snl-const-soft)')
+    expect(declaration(focus, 'box-shadow')).toContain('var(--snl-const)')
+    expect(`${label}${focus}`).not.toContain('var(--accent)')
+  })
+})

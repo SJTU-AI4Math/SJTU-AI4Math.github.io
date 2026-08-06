@@ -22,9 +22,14 @@ beforeEach(() => {
       dispatchEvent: () => false,
     }),
   })
+  Object.defineProperty(document, 'elementsFromPoint', {
+    configurable: true,
+    value: () => [],
+  })
 })
 
 afterEach(() => {
   cleanup()
   vi.restoreAllMocks()
+  vi.unstubAllGlobals()
 })

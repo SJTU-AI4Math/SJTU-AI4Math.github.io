@@ -1,7 +1,33 @@
-import { fireEvent, render, screen, within } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { App } from './App'
+
+const COURSE_MACRO_NAMES = [
+  'SummerSchool.course_1a',
+  'SummerSchool.course_1b',
+  'SummerSchool.course_2a',
+  'SummerSchool.course_2b',
+  'SummerSchool.course_3a',
+  'SummerSchool.course_3b',
+  'SummerSchool.course_4a',
+  'SummerSchool.course_4b',
+  'SummerSchool.course_5a',
+  'SummerSchool.course_5b',
+  'SummerSchool.course_6a',
+]
+
+function stubDecodedCatImages() {
+  const decode = vi.fn(async () => undefined)
+  class DecodedImage {
+    decoding = ''
+    fetchPriority = ''
+    src = ''
+    decode = decode
+  }
+  vi.stubGlobal('Image', DecodedImage)
+  return decode
+}
 
 describe('application shell', () => {
   it('renders the complete 2026 summer school plan and venue', async () => {
@@ -37,18 +63,36 @@ describe('application shell', () => {
     expect(typeTheorySnl).toHaveAttribute('data-snl-course', 'course-1a')
     expect(screen.queryByTestId('schedule-course-preview')).not.toBeInTheDocument()
     const inductionSnl = within(august24).getByLabelText('归纳法')
-    await userEvent.hover(inductionSnl)
-    const coursePopover = screen.getByTestId('course-popover')
+    await waitFor(() => {
+      expect(document.querySelectorAll('.schedule-course-snl [data-kind="const"]')).toHaveLength(11)
+    })
+    expect(document.querySelector('.schedule-course-snl [data-kind="fvar"]')).not.toBeInTheDocument()
+    expect([...document.querySelectorAll('.schedule-course-snl [data-kind="const"]')]
+      .map((node) => node.getAttribute('data-name'))).toEqual(COURSE_MACRO_NAMES)
+    const inductionSnlNode = inductionSnl.querySelector<HTMLElement>('[data-tree-path=""]')!
+    const elementsFromPoint = vi.spyOn(document, 'elementsFromPoint').mockReturnValue([])
+    fireEvent.pointerEnter(inductionSnl)
+    expect(screen.queryByTestId('course-popover')).not.toBeInTheDocument()
+    await userEvent.hover(inductionSnlNode)
+    expect(screen.queryByTestId('course-popover')).not.toBeInTheDocument()
+    await userEvent.unhover(inductionSnlNode)
+    elementsFromPoint.mockReturnValue([inductionSnlNode])
+    await userEvent.hover(inductionSnlNode)
+    const coursePopover = await screen.findByTestId('course-popover')
     expect(coursePopover).toHaveAttribute('role', 'tooltip')
     expect(within(coursePopover).getByRole('article', { name: '归纳法' })).toBeInTheDocument()
-    await userEvent.unhover(inductionSnl)
+    await userEvent.unhover(inductionSnlNode)
     expect(screen.queryByTestId('course-popover')).not.toBeInTheDocument()
-    await userEvent.click(inductionSnl)
+    await userEvent.click(inductionSnlNode)
     expect(screen.getByTestId('course-popover')).toBeInTheDocument()
     expect(inductionSnl).toHaveAttribute('aria-expanded', 'true')
-    await userEvent.click(inductionSnl)
+    fireEvent.pointerDown(inductionSnl)
     expect(screen.queryByTestId('course-popover')).not.toBeInTheDocument()
-    await userEvent.click(inductionSnl)
+    await userEvent.click(inductionSnlNode)
+    expect(screen.getByTestId('course-popover')).toBeInTheDocument()
+    await userEvent.click(inductionSnlNode)
+    expect(screen.queryByTestId('course-popover')).not.toBeInTheDocument()
+    await userEvent.click(inductionSnlNode)
     fireEvent.keyDown(inductionSnl, { key: 'Escape' })
     expect(screen.queryByTestId('course-popover')).not.toBeInTheDocument()
     expect(within(august24).getByText('光彪楼 206')).toBeInTheDocument()
@@ -109,6 +153,11 @@ describe('application shell', () => {
     expect(screen.getByRole('heading', { name: 'Courses' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Projects' })).toBeInTheDocument()
     expect(screen.getByRole('row', { name: /August 24/ })).toHaveTextContent('Type Theory')
+    await waitFor(() => {
+      expect([...document.querySelectorAll('.schedule-course-snl [data-kind="const"]')]
+        .map((node) => node.getAttribute('data-name'))).toEqual(COURSE_MACRO_NAMES)
+    })
+    expect(document.querySelector('.schedule-course-snl [data-kind="fvar"]')).not.toBeInTheDocument()
     expect(screen.getByRole('row', { name: /August 23/ })).toHaveTextContent(
       'Science Building 6, Room 440 Discussion Room',
     )
@@ -146,6 +195,67 @@ describe('application shell', () => {
     expect(document.querySelector('.publications')).not.toBeInTheDocument()
   })
 
+  it('preloads and decodes every Home cat image', async () => {
+    const preloadedSources: string[] = []
+    const decode = vi.fn(async () => undefined)
+    class PreloadImage {
+      decoding = ''
+      fetchPriority = ''
+      set src(source: string) {
+        preloadedSources.push(source)
+      }
+      decode = decode
+    }
+    vi.stubGlobal('Image', PreloadImage)
+
+    render(<App initialEntries={['/']} />)
+
+    await waitFor(() => {
+      expect(preloadedSources).toEqual([
+        '/img/day_cat.webp',
+        '/img/night_cat.webp',
+        '/img/cat_stare.webp',
+      ])
+    })
+    expect(decode).toHaveBeenCalledTimes(3)
+  })
+
+  it('ignores the stare sequence until the cat images are decoded in memory', async () => {
+    const user = userEvent.setup()
+    const finishDecode: Array<() => void> = []
+    class PendingImage {
+      decoding = ''
+      fetchPriority = ''
+      src = ''
+      decode = () => new Promise<void>((resolve) => finishDecode.push(resolve))
+    }
+    vi.stubGlobal('Image', PendingImage)
+    let now = 0
+    vi.spyOn(performance, 'now').mockImplementation(() => now)
+    render(<App initialEntries={['/']} />)
+
+    await waitFor(() => expect(finishDecode).toHaveLength(3))
+    now = 100
+    await user.click(screen.getByRole('button', { name: '切换到深色模式' }))
+    now = 500
+    await user.click(screen.getByRole('button', { name: '切换到浅色模式' }))
+    now = 1_100
+    await user.click(screen.getByRole('button', { name: '切换到深色模式' }))
+    expect(screen.queryByRole('img', { name: '凝视校园猫' })).not.toBeInTheDocument()
+
+    await act(async () => finishDecode.forEach((resolve) => resolve()))
+    now = 2_000
+    await user.click(screen.getByRole('button', { name: '切换到浅色模式' }))
+    now = 2_500
+    await user.click(screen.getByRole('button', { name: '切换到深色模式' }))
+    now = 3_000
+    await user.click(screen.getByRole('button', { name: '切换到浅色模式' }))
+    expect(screen.getByRole('img', { name: '凝视校园猫' })).toHaveAttribute(
+      'src',
+      '/img/cat_stare.webp',
+    )
+  })
+
   it('switches the Home screen to the night cat with the dark theme', async () => {
     const user = userEvent.setup()
     render(<App initialEntries={['/']} />)
@@ -161,11 +271,14 @@ describe('application shell', () => {
 
   it('locks the screen to the stare cat after three theme switches within one second', async () => {
     const user = userEvent.setup()
+    const decode = stubDecodedCatImages()
     let now = 0
     vi.spyOn(performance, 'now').mockImplementation(() => now)
     render(<App initialEntries={['/']} />)
 
     await screen.findByRole('img', { name: '白日校园猫' })
+    await waitFor(() => expect(decode).toHaveBeenCalledTimes(3))
+    await act(async () => undefined)
     now = 100
     await user.click(screen.getByRole('button', { name: '切换到深色模式' }))
     expect(screen.queryByRole('img', { name: '凝视校园猫' })).not.toBeInTheDocument()
@@ -194,11 +307,14 @@ describe('application shell', () => {
 
   it('does not trigger the stare cat when three theme switches span more than one second', async () => {
     const user = userEvent.setup()
+    const decode = stubDecodedCatImages()
     let now = 0
     vi.spyOn(performance, 'now').mockImplementation(() => now)
     render(<App initialEntries={['/']} />)
 
     await screen.findByRole('img', { name: '白日校园猫' })
+    await waitFor(() => expect(decode).toHaveBeenCalledTimes(3))
+    await act(async () => undefined)
     now = 100
     await user.click(screen.getByRole('button', { name: '切换到深色模式' }))
     now = 500

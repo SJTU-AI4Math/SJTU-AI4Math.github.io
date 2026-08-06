@@ -4,11 +4,8 @@ import {
   parseSnlSyntaxTree,
   SnlInteractionDriver,
   SnlSyntaxTreeView,
+  type SnlMacro,
 } from '@sjtu-ai4math/snl-basics'
-
-const macroDataDriver = new MacroDataDriver({
-  queries: { query_macro: async () => null },
-})
 
 export type PopoverShowMode = 'transient' | 'pinned'
 
@@ -28,14 +25,35 @@ export function SnlCourseLabel({
   onShow,
 }: SnlCourseLabelProps) {
   const rootRef = useRef<HTMLSpanElement>(null)
-  const tree = useMemo(() => parseSnlSyntaxTree(`%${label}%`), [label])
-  const show = useCallback((mode: PopoverShowMode) => {
-    if (rootRef.current) onShow(courseId, rootRef.current, mode)
+  const macroName = `SummerSchool.${courseId.replaceAll('-', '_')}`
+  const macro = useMemo<SnlMacro>(() => ({
+    name: macroName,
+    description: label,
+    source: { entries: [], urls: [] },
+    kind: 'const',
+    dynamic_arity: false,
+    styles: [{
+      style_name: 'default',
+      mode: 'text',
+      template: label,
+      tags: [],
+    }],
+    tags: ['summer-school', 'course'],
+  }), [label, macroName])
+  const macroDataDriver = useMemo(() => new MacroDataDriver({
+    queries: {
+      query_macro: async ({ macro_name }) => macro_name === macroName ? macro : null,
+    },
+  }), [macro, macroName])
+  const tree = useMemo(() => parseSnlSyntaxTree(macroName), [macroName])
+  const show = useCallback((mode: PopoverShowMode, anchor = rootRef.current) => {
+    if (anchor) onShow(courseId, anchor, mode)
   }, [courseId, onShow])
   const interactionDriver = useMemo(
     () => new SnlInteractionDriver({
-      on_hover: () => show('transient'),
+      on_hover: ({ target }) => show('transient', target),
       on_leave: () => onHide(courseId),
+      on_click: ({ target }) => show('pinned', target),
     }),
     [courseId, onHide, show],
   )
@@ -58,11 +76,8 @@ export function SnlCourseLabel({
       aria-describedby={isOpen ? 'course-detail-popover' : undefined}
       role="button"
       tabIndex={0}
-      onPointerEnter={() => show('transient')}
-      onPointerLeave={() => onHide(courseId)}
       onFocus={() => show('transient')}
       onBlur={() => onHide(courseId, true)}
-      onClick={() => show('pinned')}
       onKeyDown={handleKeyDown}
     >
       <SnlSyntaxTreeView
