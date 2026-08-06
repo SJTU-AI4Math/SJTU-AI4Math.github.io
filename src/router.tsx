@@ -7,7 +7,8 @@ import {
 } from '@tanstack/react-router'
 import { AppLayout } from './layout/AppLayout'
 import { HomePage } from './pages/HomePage'
-import { SummerSchoolPage } from './pages/SummerSchoolPage'
+import { LazySummerSchoolPage } from './pages/LazySummerSchoolPage'
+import { LecturePage } from './pages/LecturePage'
 
 const rootRoute = createRootRoute({ component: AppLayout })
 
@@ -26,12 +27,18 @@ const summerSchoolRoute = createRoute({
 const summerSchool2026Route = createRoute({
   getParentRoute: () => summerSchoolRoute,
   path: '2026',
-  component: SummerSchoolPage,
+  component: LazySummerSchoolPage,
+})
+
+const lectureRoute = createRoute({
+  getParentRoute: () => summerSchoolRoute,
+  path: '2026/lectures/$lectureSlug',
+  component: LecturePage,
 })
 
 const routeTree = rootRoute.addChildren([
   indexRoute,
-  summerSchoolRoute.addChildren([summerSchool2026Route]),
+  summerSchoolRoute.addChildren([summerSchool2026Route, lectureRoute]),
 ])
 
 export function createAppRouter(initialEntries?: string[]) {

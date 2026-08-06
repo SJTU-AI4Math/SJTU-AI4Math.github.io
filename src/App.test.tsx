@@ -12,14 +12,29 @@ describe('application shell', () => {
       'href',
       '/summer-school/2026',
     )
-    expect(screen.getByRole('heading', { level: 1, name: '2026 暑期学校' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { level: 1, name: '2026 暑期学校' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: '日程安排' })).toBeInTheDocument()
 
-    const august24 = screen.getByRole('article', { name: '8 月 24 日' })
-    expect(within(august24).getByText('类型论')).toBeInTheDocument()
+    expect(screen.getByText('8 月 24–30 日')).toBeInTheDocument()
+    expect(screen.queryByText('8 天')).not.toBeInTheDocument()
+    expect(screen.queryByText('11 门课程')).not.toBeInTheDocument()
+    expect(screen.queryByText('12 个课题')).not.toBeInTheDocument()
+    expect(document.querySelector('.summer-hero-metrics')).not.toBeInTheDocument()
+
+    const scheduleTable = screen.getByRole('table', { name: '日程安排' })
+    const august24 = within(scheduleTable).getByRole('row', { name: /8 月 24 日/ })
+    const typeTheorySnl = within(august24).getByLabelText('类型论')
+    expect(typeTheorySnl).toHaveAttribute('data-snl-course', 'course-1a')
+    const schedulePreview = screen.getByTestId('schedule-course-preview')
+    expect(within(schedulePreview).getByRole('article', { name: '类型论' })).toBeInTheDocument()
+    await userEvent.hover(within(august24).getByLabelText('归纳法'))
+    expect(within(schedulePreview).getByRole('article', { name: '归纳法' })).toBeInTheDocument()
     expect(within(august24).getByText('光彪楼 206')).toBeInTheDocument()
 
-    expect(screen.getByRole('article', { name: '类型论' })).toHaveTextContent('刘云天（猫猫）')
+    const courseCard = screen.getByRole('link', { name: /课程 1A · 类型论/ })
+    expect(document.querySelectorAll('.course-grid > .card-link')).toHaveLength(11)
+    expect(courseCard).toHaveAttribute('href', '/summer-school/2026/lectures/type-theory')
+    expect(courseCard).toHaveTextContent('刘云天（猫猫）')
     expect(screen.getByRole('article', { name: '智能体框架搭建' })).toBeInTheDocument()
     expect(screen.getByRole('img', { name: '上海交通大学校园地图' })).toHaveAttribute(
       'src',
@@ -46,10 +61,23 @@ describe('application shell', () => {
     expect(screen.getByRole('heading', { name: 'Schedule' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Courses' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Projects' })).toBeInTheDocument()
-    expect(screen.getByRole('article', { name: 'August 24' })).toHaveTextContent('Type Theory')
+    expect(screen.getByRole('row', { name: /August 24/ })).toHaveTextContent('Type Theory')
     const venueCard = screen.getByRole('article', { name: 'Venues & Campus Map' })
     expect(within(venueCard).getByText('Guangbiao Building, Room 206')).toBeInTheDocument()
     expect(within(venueCard).getByText('Science Buildings 5–6, Room 300')).toBeInTheDocument()
+  })
+
+  it('shows a lecture placeholder on the stable nested route', async () => {
+    render(<App initialEntries={['/summer-school/2026/lectures/type-theory']} />)
+
+    expect(await screen.findByRole('heading', { level: 1, name: '类型论' })).toBeInTheDocument()
+    expect(screen.getAllByText('讲义将在课程前一天公布')).not.toHaveLength(0)
+    const backLink = screen.getByRole('link', { name: /返回 2026 暑期学校/ })
+    expect(backLink).toHaveAttribute(
+      'href',
+      '/summer-school/2026#courses',
+    )
+    expect(backLink).not.toHaveAttribute('aria-current')
   })
 
   it('renders the day cat screen and an empty publications card on Home', async () => {

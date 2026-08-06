@@ -17,6 +17,7 @@ export interface ScheduleDay {
 
 export interface Course {
   id: string
+  slug: string
   code: string
   title: LocalizedText
   speaker: LocalizedText
@@ -125,7 +126,7 @@ export const schedule: ScheduleDay[] = [
 
 export const courses: Course[] = [
   {
-    id: 'course-1a', code: '1A', tone: 'violet',
+    id: 'course-1a', slug: 'type-theory', code: '1A', tone: 'violet',
     title: text('类型论', 'Type Theory'),
     speaker: text('刘云天（猫猫）', 'Yuntian Liu (Maomao)'),
     topics: [
@@ -137,7 +138,7 @@ export const courses: Course[] = [
     ],
   },
   {
-    id: 'course-1b', code: '1B', tone: 'violet',
+    id: 'course-1b', slug: 'induction', code: '1B', tone: 'violet',
     title: text('归纳法', 'Induction'),
     speaker: text('刘云天（猫猫）', 'Yuntian Liu (Maomao)'),
     topics: [
@@ -149,7 +150,7 @@ export const courses: Course[] = [
     ],
   },
   {
-    id: 'course-2a', code: '2A', tone: 'blue',
+    id: 'course-2a', slug: 'curry-howard', code: '2A', tone: 'blue',
     title: text('Curry-Howard 对应', 'Curry–Howard Correspondence'),
     speaker: text('刘云天（猫猫）', 'Yuntian Liu (Maomao)'),
     topics: [
@@ -159,7 +160,7 @@ export const courses: Course[] = [
     ],
   },
   {
-    id: 'course-2b', code: '2B', tone: 'blue',
+    id: 'course-2b', slug: 'jixia-proof-exploration', code: '2B', tone: 'blue',
     title: text('稷下证鸣', 'Jixia Proof Exploration'),
     speaker: text('刘云天（猫猫）', 'Yuntian Liu (Maomao)'),
     topics: [
@@ -170,7 +171,7 @@ export const courses: Course[] = [
     ],
   },
   {
-    id: 'course-3a', code: '3A', tone: 'green',
+    id: 'course-3a', slug: 'formal-libraries', code: '3A', tone: 'green',
     title: text('形式化库', 'Formal Libraries'),
     speaker: text('刘云天（猫猫）', 'Yuntian Liu (Maomao)'),
     topics: [
@@ -180,7 +181,7 @@ export const courses: Course[] = [
     ],
   },
   {
-    id: 'course-3b', code: '3B', tone: 'green',
+    id: 'course-3b', slug: 'typeclasses-algebraic-structures', code: '3B', tone: 'green',
     title: text('类型类与代数结构', 'Typeclasses and Algebraic Structures'),
     speaker: text('刘云天（猫猫）', 'Yuntian Liu (Maomao)'),
     topics: [
@@ -189,13 +190,13 @@ export const courses: Course[] = [
     ],
   },
   {
-    id: 'course-4a', code: '4A', tone: 'amber',
+    id: 'course-4a', slug: 'abstract-analysis', code: '4A', tone: 'amber',
     title: text('抽象分析', 'Abstract Analysis'),
     speaker: text('刘云天（猫猫）', 'Yuntian Liu (Maomao)'),
     topics: [text('分析学结构化：ε-δ 语言、度量空间、拓扑空间、滤子', 'Structuring analysis: epsilon–delta language, metric spaces, topological spaces, and filters')],
   },
   {
-    id: 'course-4b', code: '4B', tone: 'amber',
+    id: 'course-4b', slug: 'functional-programming', code: '4B', tone: 'amber',
     title: text('函数式编程', 'Functional Programming'),
     speaker: text('刘云天（猫猫）', 'Yuntian Liu (Maomao)'),
     topics: [
@@ -205,19 +206,19 @@ export const courses: Course[] = [
     ],
   },
   {
-    id: 'course-5a', code: '5A', tone: 'rose',
+    id: 'course-5a', slug: 'ai4math', code: '5A', tone: 'rose',
     title: text('AI4Math', 'AI4Math'),
     speaker: text('周子喻（子鱼）', 'Ziyu Zhou (Subfish)'),
     topics: [],
   },
   {
-    id: 'course-5b', code: '5B', tone: 'rose',
+    id: 'course-5b', slug: 'metaprogramming', code: '5B', tone: 'rose',
     title: text('元编程', 'Metaprogramming'),
     speaker: text('周子喻（子鱼）', 'Ziyu Zhou (Subfish)'),
     topics: [],
   },
   {
-    id: 'course-6a', code: '6A', tone: 'rose',
+    id: 'course-6a', slug: 'perfect-tactics-workshop', code: '6A', tone: 'rose',
     title: text('子鱼的完美证明术工坊', "Subfish's Perfect Tactics Workshop"),
     speaker: text('周子喻（子鱼）', 'Ziyu Zhou (Subfish)'),
     topics: [],

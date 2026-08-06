@@ -386,6 +386,16 @@ a:focus-visible {
   line-height: 1.65;
 }
 
+.content-card {
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.content-card:not(:empty):hover {
+  border-color: color-mix(in srgb, var(--card-accent) 45%, var(--border));
+  box-shadow: 0 16px 38px color-mix(in srgb, var(--card-accent) 10%, transparent);
+  transform: translateY(-2px);
+}
+
 .summer-school-page {
   width: min(1080px, 100%);
   margin: 0 auto;
@@ -395,10 +405,7 @@ a:focus-visible {
 .summer-hero {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 3rem;
-  min-height: 340px;
+  grid-template-columns: minmax(0, 1fr);
   padding: clamp(2rem, 5vw, 4.5rem);
   border: 1px solid var(--border);
   border-radius: 30px;
@@ -422,8 +429,7 @@ a:focus-visible {
   pointer-events: none;
 }
 
-.summer-hero-copy,
-.summer-hero-metrics {
+.summer-hero-copy {
   position: relative;
 }
 
@@ -456,33 +462,6 @@ a:focus-visible {
   color: var(--text-muted);
   font-size: clamp(1rem, 2vw, 1.2rem);
   line-height: 1.65;
-}
-
-.summer-hero-metrics {
-  display: grid;
-  gap: 0.65rem;
-  min-width: 128px;
-}
-
-.summer-hero-metrics > span {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.summer-hero-metrics strong {
-  color: var(--text);
-  font-size: 1.7rem;
-  font-weight: 620;
-  letter-spacing: -0.04em;
-}
-
-.summer-hero-metrics small {
-  color: var(--text-muted);
-  font-size: 0.72rem;
 }
 
 .summer-page-nav {
@@ -556,18 +535,89 @@ a:focus-visible {
   line-height: 1.7;
 }
 
-.schedule-grid,
 .course-grid,
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
 }
 
-.schedule-card,
 .course-card,
 .project-card {
   height: 100%;
+}
+
+.schedule-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  box-shadow: var(--shadow);
+}
+
+.schedule-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+  color: var(--text);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.schedule-table th,
+.schedule-table td {
+  padding: 0.9rem 0.8rem;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.schedule-table tr:last-child > * { border-bottom: 0; }
+.schedule-table tr > *:last-child { border-right: 0; }
+
+.schedule-table thead th {
+  color: var(--text-muted);
+  background: var(--surface-hover);
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.schedule-table tbody th {
+  min-width: 7.2rem;
+  font-weight: 680;
+  white-space: nowrap;
+}
+
+.schedule-course-snl {
+  display: inline-flex;
+  min-height: 1.8rem;
+  align-items: center;
+  padding: 0.18rem 0.42rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 26%, var(--border));
+  border-radius: 6px;
+  background: var(--accent-soft);
+  cursor: default;
+  outline: none;
+}
+
+.schedule-course-snl:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+.schedule-course-preview { margin-top: 1rem; }
+
+.card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.card-link:focus-visible {
+  border-radius: 14px;
+  outline: 3px solid color-mix(in srgb, var(--accent) 38%, transparent);
+  outline-offset: 3px;
 }
 
 .location-label {
@@ -674,6 +724,25 @@ a:focus-visible {
 
 .project-examples {
   margin-top: 0.75rem;
+}
+
+.lecture-page {
+  width: min(900px, 100%);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 7rem) 0;
+}
+
+.lecture-page h1 {
+  margin: 1.6rem 0 2rem;
+  color: var(--text);
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  letter-spacing: -0.055em;
+}
+
+.lecture-back-link {
+  color: var(--accent);
+  font-weight: 650;
+  text-decoration: none;
 }
 
 .projects-vision {

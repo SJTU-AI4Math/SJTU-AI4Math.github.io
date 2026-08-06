@@ -1,5 +1,8 @@
+import { useCallback, useState } from 'react'
+import { Link } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
 import { Card } from '../components/Card'
+import { SnlCourseLabel } from '../components/SnlCourseLabel'
 import {
   courses,
   localize,
@@ -36,6 +39,19 @@ export function SummerSchoolPage() {
   const { i18n, t } = useTranslation()
   const language = i18n.resolvedLanguage
   const l = (value: LocalizedText) => localize(value, language)
+  const [activeCourseId, setActiveCourseId] = useState(courses[0].id)
+  const setActiveCourse = useCallback((courseId: string) => setActiveCourseId(courseId), [])
+  const activeCourse = courses.find((course) => course.id === activeCourseId) ?? courses[0]
+  const courseForContent = (content: LocalizedText) => courses.find(
+    (course) => course.title.zh === content.zh || course.title.en === content.en,
+  )
+
+  const renderScheduleContent = (content: LocalizedText) => {
+    const course = courseForContent(content)
+    return course ? (
+      <SnlCourseLabel courseId={course.id} label={l(course.title)} onHover={setActiveCourse} />
+    ) : l(content)
+  }
 
   return (
     <div className="summer-school-page">
@@ -44,11 +60,6 @@ export function SummerSchoolPage() {
           <span className="summer-hero-date">{t('summerSchool.dates')}</span>
           <h1>{t('summerSchool.title')}</h1>
           <p>{t('summerSchool.lead')}</p>
-        </div>
-        <div className="summer-hero-metrics" aria-label={t('summerSchool.onThisPage')}>
-          <span><strong>{schedule.length}</strong><small>{t('summerSchool.daysUnit')}</small></span>
-          <span><strong>{courses.length}</strong><small>{t('summerSchool.coursesUnit')}</small></span>
-          <span><strong>{projects.length}</strong><small>{t('summerSchool.projectsUnit')}</small></span>
         </div>
       </header>
 
@@ -66,26 +77,46 @@ export function SummerSchoolPage() {
           title={t('summerSchool.schedule')}
           description={t('summerSchool.scheduleIntro')}
         />
-        <div className="schedule-grid">
-          {schedule.map((day, index) => (
-            <Card
-              key={day.id}
-              className="schedule-card"
-              tone={index < 2 ? 'violet' : index < 5 ? 'blue' : 'green'}
-              eyebrow={`${t('summerSchool.day')} ${String(index + 1).padStart(2, '0')}`}
-              title={l(day.date)}
-              meta={<span className="location-label">{l(day.location)}</span>}
-            >
-              <div className="schedule-slots">
-                {day.slots.map((item) => (
-                  <div className="schedule-slot" key={`${day.id}-${l(item.time)}`}>
-                    <time>{l(item.time)}</time>
-                    <span>{l(item.content)}</span>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          ))}
+        <div className="schedule-table-wrap">
+          <table className="schedule-table" aria-label={t('summerSchool.schedule')}>
+            <thead>
+              <tr>
+                <th>{t('summerSchool.scheduleDate')}</th>
+                <th>{t('summerSchool.scheduleMorning')}</th>
+                <th>{t('summerSchool.scheduleAfternoon')}</th>
+                <th>{t('summerSchool.scheduleEvening')}</th>
+                <th>{t('summerSchool.location')}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {schedule.map((day) => {
+                const slots = new Map(day.slots.map((slot) => [slot.time.zh, slot.content]))
+                return (
+                  <tr key={day.id}>
+                    <th scope="row">{l(day.date)}</th>
+                    {['上午 · 9:00–11:00', '下午 · 14:00–17:00', '晚间 · 19:00–21:00'].map((time) => (
+                      <td key={time}>{slots.get(time) ? renderScheduleContent(slots.get(time)!) : '—'}</td>
+                    ))}
+                    <td>{l(day.location)}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+        <div className="schedule-course-preview" data-testid="schedule-course-preview" aria-live="polite">
+          <Card
+            tone={activeCourse.tone}
+            eyebrow={`${t('summerSchool.course')} ${activeCourse.code}`}
+            title={l(activeCourse.title)}
+            meta={<span>{t('summerSchool.speaker')} · {l(activeCourse.speaker)}</span>}
+          >
+            {activeCourse.topics.length > 0 ? (
+              <ul className="topic-list">
+                {activeCourse.topics.map((topic) => <li key={topic.zh}>{l(topic)}</li>)}
+              </ul>
+            ) : <p>{t('summerSchool.lectureNotice')}</p>}
+          </Card>
         </div>
       </section>
 
@@ -149,22 +180,29 @@ export function SummerSchoolPage() {
           title={t('summerSchool.courses')}
           description={t('summerSchool.coursesIntro')}
         />
-        <div className="course-grid">
+        <div className="course-grid card-list">
           {courses.map((course) => (
-            <Card
+            <Link
               key={course.id}
-              className="course-card"
-              tone={course.tone}
-              eyebrow={`${t('summerSchool.course')} ${course.code}`}
-              title={l(course.title)}
-              meta={<span>{t('summerSchool.speaker')} · {l(course.speaker)}</span>}
+              className="card-link"
+              to="/summer-school/2026/lectures/$lectureSlug"
+              params={{ lectureSlug: course.slug }}
+              aria-label={`${t('summerSchool.course')} ${course.code} · ${l(course.title)}`}
             >
-              {course.topics.length > 0 ? (
-                <ul className="topic-list">
-                  {course.topics.map((topic) => <li key={topic.zh}>{l(topic)}</li>)}
-                </ul>
-              ) : null}
-            </Card>
+              <Card
+                className="course-card"
+                tone={course.tone}
+                eyebrow={`${t('summerSchool.course')} ${course.code}`}
+                title={l(course.title)}
+                meta={<span>{t('summerSchool.speaker')} · {l(course.speaker)}</span>}
+              >
+                {course.topics.length > 0 ? (
+                  <ul className="topic-list">
+                    {course.topics.map((topic) => <li key={topic.zh}>{l(topic)}</li>)}
+                  </ul>
+                ) : <p>{t('summerSchool.lectureNotice')}</p>}
+              </Card>
+            </Link>
           ))}
         </div>
       </section>
@@ -178,7 +216,7 @@ export function SummerSchoolPage() {
         />
         <p className="projects-vision">{t('summerSchool.projectsVision')}</p>
         <aside className="ai-policy">{t('summerSchool.aiPolicy')}</aside>
-        <div className="project-grid">
+        <div className="project-grid card-list">
           {projects.map((project) => (
             <Card
               key={project.id}
