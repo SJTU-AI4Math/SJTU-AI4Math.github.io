@@ -136,13 +136,14 @@ describe('application shell', () => {
     expect(backLink).not.toHaveAttribute('aria-current')
   })
 
-  it('renders the day cat screen and an empty publications card on Home', async () => {
+  it('renders the day cat screen without a publications section on Home', async () => {
     render(<App initialEntries={['/']} />)
 
     const screenImage = await screen.findByRole('img', { name: '白日校园猫' })
     expect(screenImage).toHaveAttribute('src', '/img/day_cat.webp')
-    expect(screen.getByRole('heading', { name: '论文发表' })).toBeInTheDocument()
-    expect(screen.getByRole('article', { name: '论文占位卡片' })).toBeEmptyDOMElement()
+    expect(screen.queryByRole('heading', { name: '论文发表' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('article', { name: '论文占位卡片' })).not.toBeInTheDocument()
+    expect(document.querySelector('.publications')).not.toBeInTheDocument()
   })
 
   it('switches the Home screen to the night cat with the dark theme', async () => {
@@ -158,16 +159,6 @@ describe('application shell', () => {
     )
   })
 
-  it('translates the Publications heading and placeholder label', async () => {
-    const user = userEvent.setup()
-    render(<App initialEntries={['/']} />)
-
-    await screen.findByRole('heading', { name: '论文发表' })
-    await user.click(screen.getByRole('button', { name: 'Switch to English' }))
-
-    expect(screen.getByRole('heading', { name: 'Publications' })).toBeInTheDocument()
-    expect(screen.getByRole('article', { name: 'Empty publication card' })).toBeEmptyDOMElement()
-  })
 
   it('switches the navigation language and persists the choice', async () => {
     const user = userEvent.setup()

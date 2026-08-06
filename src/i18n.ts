@@ -18,8 +18,6 @@ const resources = {
         screenLabel: '校园猫屏风',
         dayCatAlt: '白日校园猫',
         nightCatAlt: '夜间校园猫',
-        publications: '论文发表',
-        emptyPublicationCard: '论文占位卡片',
       },
       summerSchool: {
         title: '2026 暑期学校',
@@ -75,8 +73,6 @@ const resources = {
         screenLabel: 'Campus cat screen',
         dayCatAlt: 'Campus cat by day',
         nightCatAlt: 'Campus cat at night',
-        publications: 'Publications',
-        emptyPublicationCard: 'Empty publication card',
       },
       summerSchool: {
         title: '2026 Summer School',

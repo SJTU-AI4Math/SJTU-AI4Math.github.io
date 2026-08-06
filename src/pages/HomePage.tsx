@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next'
-import { Card } from '../components/Card'
 import { useTheme } from '../theme/theme-context'
 
 export function HomePage() {
@@ -21,18 +20,6 @@ export function HomePage() {
             fetchPriority="high"
           />
         </div>
-      </section>
-
-      <section className="publications" aria-labelledby="publications-title">
-        <div className="section-heading">
-          <span className="section-kicker" aria-hidden="true">01</span>
-          <h1 id="publications-title">{t('home.publications')}</h1>
-        </div>
-        <Card
-          className="publication-card publication-card-empty"
-          tone="neutral"
-          ariaLabel={t('home.emptyPublicationCard')}
-        />
       </section>
     </div>
   )
