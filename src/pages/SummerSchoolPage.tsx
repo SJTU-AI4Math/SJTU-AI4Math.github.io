@@ -92,7 +92,7 @@ export function SummerSchoolPage() {
         </div>
       </header>
 
-      <nav className="summer-page-nav" aria-label={t('summerSchool.onThisPage')}>
+      <nav className="summer-page-nav summer-side-nav" aria-label={t('summerSchool.onThisPage')}>
         <a href="#schedule">{t('summerSchool.schedule')}</a>
         <a href="#courses">{t('summerSchool.coursesNav')}</a>
         <a href="#projects">{t('summerSchool.projects')}</a>

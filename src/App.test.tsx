@@ -14,6 +14,14 @@ describe('application shell', () => {
     )
     expect(await screen.findByRole('heading', { level: 1, name: '2026 暑期学校' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: '日程安排' })).toBeInTheDocument()
+    const pageNavigation = screen.getByRole('navigation', { name: '本页导航' })
+    expect(pageNavigation).toHaveClass('summer-side-nav')
+    expect(within(pageNavigation).getAllByRole('link').map((link) => link.textContent)).toEqual([
+      '日程安排',
+      '课程',
+      '课题实践',
+      '地点',
+    ])
 
     expect(screen.getByText('8 月 24–30 日')).toBeInTheDocument()
     expect(screen.queryByText('8 天')).not.toBeInTheDocument()

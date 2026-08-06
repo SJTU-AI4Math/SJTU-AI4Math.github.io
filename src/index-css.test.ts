@@ -5,12 +5,37 @@ import { describe, expect, it } from 'vitest'
 
 const css = readFileSync(resolve(process.cwd(), 'src/index.css'), 'utf8')
 
-function block(selector: string, last = false) {
-  const start = last ? css.lastIndexOf(`${selector} {`) : css.indexOf(`${selector} {`)
+function bracedContent(source: string, start: number) {
+  const bodyStart = source.indexOf('{', start) + 1
+  let depth = 1
+  for (let index = bodyStart; index < source.length; index += 1) {
+    if (source[index] === '{') depth += 1
+    if (source[index] === '}') depth -= 1
+    if (depth === 0) return source.slice(bodyStart, index)
+  }
+  throw new Error('Unclosed CSS block')
+}
+
+function blockIn(source: string, selector: string, last = false) {
+  const needle = `${selector} {`
+  const start = last ? source.lastIndexOf(needle) : source.indexOf(needle)
   if (start < 0) throw new Error(`Missing CSS block: ${selector}`)
-  const bodyStart = css.indexOf('{', start) + 1
-  const end = css.indexOf('}', bodyStart)
-  return css.slice(bodyStart, end)
+  return bracedContent(source, start)
+}
+
+function block(selector: string, last = false) {
+  return blockIn(css, selector, last)
+}
+
+function declaration(styles: string, property: string) {
+  for (const candidate of styles.split(';')) {
+    const separator = candidate.indexOf(':')
+    if (separator < 0) continue
+    if (candidate.slice(0, separator).trim() === property) {
+      return candidate.slice(separator + 1).trim()
+    }
+  }
+  throw new Error(`Missing CSS declaration: ${property}`)
 }
 
 function hexVariable(styles: string, name: string) {
@@ -54,5 +79,39 @@ describe('campus map marker contrast', () => {
     expect(borderWidth).toBeGreaterThan(0)
     expect(-tailBottom).toBe(tailHeight)
     expect(transformOffset).toBe(tailHeight - borderWidth)
+  })
+})
+
+describe('summer school side navigation', () => {
+  it('matches declaration names exactly', () => {
+    expect(() => declaration('margin-bottom: 0.75rem;', 'bottom')).toThrow(
+      'Missing CSS declaration: bottom',
+    )
+  })
+
+  it('uses a fixed right-side vertical rail on desktop', () => {
+    const navigation = block('.summer-page-nav')
+    expect(declaration(navigation, 'position')).toBe('fixed')
+    expect(declaration(navigation, 'right')).toBeTruthy()
+    expect(declaration(navigation, 'flex-direction')).toBe('column')
+  })
+
+  it('stays right-aligned and vertical without overlaying mobile content', () => {
+    const navigation = block('.summer-page-nav', true)
+    expect(declaration(navigation, 'position')).toBe('static')
+    expect(declaration(navigation, 'flex-direction')).toBe('column')
+    expect(declaration(navigation, 'margin')).toBe('1.25rem 0 0 auto')
+  })
+
+  it('avoids the sticky navbar in short desktop landscape viewports', () => {
+    const shortLandscape = block(
+      '@media (min-width: 1100px) and (max-height: 420px)',
+    )
+    const extremelyShortLandscape = block(
+      '@media (min-width: 1100px) and (max-height: 280px)',
+    )
+
+    expect(declaration(blockIn(shortLandscape, '.summer-page-nav'), 'bottom')).toBe('0.75rem')
+    expect(declaration(blockIn(extremelyShortLandscape, '.summer-page-nav'), 'position')).toBe('static')
   })
 })

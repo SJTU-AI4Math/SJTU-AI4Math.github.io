@@ -28,7 +28,7 @@ const POPOVER_GAP = 12
 
 function stickyStackBottom() {
   let bottom = VIEWPORT_MARGIN
-  for (const element of document.querySelectorAll<HTMLElement>('.navbar, .summer-page-nav')) {
+  for (const element of document.querySelectorAll<HTMLElement>('.navbar, [data-sticky-top]')) {
     const styles = window.getComputedStyle(element)
     if (styles.position !== 'sticky' && styles.position !== 'fixed') continue
     const rect = element.getBoundingClientRect()
