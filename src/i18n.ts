@@ -18,6 +18,7 @@ const resources = {
         screenLabel: '校园猫屏风',
         dayCatAlt: '白日校园猫',
         nightCatAlt: '夜间校园猫',
+        stareCatAlt: '凝视校园猫',
       },
       summerSchool: {
         title: '2026 暑期学校',
@@ -73,6 +74,7 @@ const resources = {
         screenLabel: 'Campus cat screen',
         dayCatAlt: 'Campus cat by day',
         nightCatAlt: 'Campus cat at night',
+        stareCatAlt: 'Staring campus cat',
       },
       summerSchool: {
         title: '2026 Summer School',

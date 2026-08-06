@@ -1,20 +1,47 @@
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from '../theme/theme-context'
+
+const STARE_SWITCH_COUNT = 3
+const STARE_SWITCH_WINDOW_MS = 1_000
 
 export function HomePage() {
   const { t } = useTranslation()
   const { theme } = useTheme()
   const isDark = theme === 'dark'
+  const [isStareLocked, setIsStareLocked] = useState(false)
+  const previousTheme = useRef(theme)
+  const themeSwitchTimes = useRef<number[]>([])
+
+  useEffect(() => {
+    if (previousTheme.current === theme) return
+    previousTheme.current = theme
+    if (isStareLocked) return
+
+    const now = performance.now()
+    themeSwitchTimes.current = [
+      ...themeSwitchTimes.current.filter((time) => now - time <= STARE_SWITCH_WINDOW_MS),
+      now,
+    ]
+    if (themeSwitchTimes.current.length >= STARE_SWITCH_COUNT) setIsStareLocked(true)
+  }, [isStareLocked, theme])
+
+  const catSrc = isStareLocked
+    ? '/img/cat_stare.webp'
+    : isDark ? '/img/night_cat.webp' : '/img/day_cat.webp'
+  const catAlt = isStareLocked
+    ? t('home.stareCatAlt')
+    : isDark ? t('home.nightCatAlt') : t('home.dayCatAlt')
 
   return (
     <div className="home-page">
       <section className="cat-screen" aria-label={t('home.screenLabel')}>
         <div className="cat-screen-frame">
           <img
-            key={theme}
+            key={catSrc}
             className="cat-screen-image"
-            src={isDark ? '/img/night_cat.webp' : '/img/day_cat.webp'}
-            alt={isDark ? t('home.nightCatAlt') : t('home.dayCatAlt')}
+            src={catSrc}
+            alt={catAlt}
             width="1920"
             height="1440"
             fetchPriority="high"

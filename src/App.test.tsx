@@ -159,6 +159,60 @@ describe('application shell', () => {
     )
   })
 
+  it('locks the screen to the stare cat after three theme switches within one second', async () => {
+    const user = userEvent.setup()
+    let now = 0
+    vi.spyOn(performance, 'now').mockImplementation(() => now)
+    render(<App initialEntries={['/']} />)
+
+    await screen.findByRole('img', { name: '白日校园猫' })
+    now = 100
+    await user.click(screen.getByRole('button', { name: '切换到深色模式' }))
+    expect(screen.queryByRole('img', { name: '凝视校园猫' })).not.toBeInTheDocument()
+    expect(screen.getByRole('img', { name: '夜间校园猫' })).toBeInTheDocument()
+
+    now = 500
+    await user.click(screen.getByRole('button', { name: '切换到浅色模式' }))
+    expect(screen.queryByRole('img', { name: '凝视校园猫' })).not.toBeInTheDocument()
+    expect(screen.getByRole('img', { name: '白日校园猫' })).toBeInTheDocument()
+
+    now = 1_100
+    await user.click(screen.getByRole('button', { name: '切换到深色模式' }))
+
+    expect(screen.getByRole('img', { name: '凝视校园猫' })).toHaveAttribute(
+      'src',
+      '/img/cat_stare.webp',
+    )
+
+    now = 1_600
+    await user.click(screen.getByRole('button', { name: '切换到浅色模式' }))
+    expect(screen.getByRole('img', { name: '凝视校园猫' })).toHaveAttribute(
+      'src',
+      '/img/cat_stare.webp',
+    )
+  })
+
+  it('does not trigger the stare cat when three theme switches span more than one second', async () => {
+    const user = userEvent.setup()
+    let now = 0
+    vi.spyOn(performance, 'now').mockImplementation(() => now)
+    render(<App initialEntries={['/']} />)
+
+    await screen.findByRole('img', { name: '白日校园猫' })
+    now = 100
+    await user.click(screen.getByRole('button', { name: '切换到深色模式' }))
+    now = 500
+    await user.click(screen.getByRole('button', { name: '切换到浅色模式' }))
+    now = 1_101
+    await user.click(screen.getByRole('button', { name: '切换到深色模式' }))
+
+    expect(screen.queryByRole('img', { name: '凝视校园猫' })).not.toBeInTheDocument()
+    expect(screen.getByRole('img', { name: '夜间校园猫' })).toHaveAttribute(
+      'src',
+      '/img/night_cat.webp',
+    )
+  })
+
 
   it('switches the navigation language and persists the choice', async () => {
     const user = userEvent.setup()
