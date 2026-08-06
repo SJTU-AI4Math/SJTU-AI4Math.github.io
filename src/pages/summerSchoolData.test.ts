@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import plan from '../../assets/source/Plan.md?raw'
-import { courses, notes, projects, schedule } from './summerSchoolData'
+import { campusLocations, courses, notes, projects, schedule } from './summerSchoolData'
 
 function cleanMarkdown(value: string) {
   return value
@@ -43,7 +43,7 @@ function structuredSchedule() {
     if (!date) throw new Error(`Invalid structured date: ${day.date.zh}`)
     return {
       date: `${Number(date[1])}.${Number(date[2])}`,
-      location: day.location.zh === '地点未定' ? '未定' : day.location.zh,
+      location: day.location.zh,
       slots: day.slots.map((item) => ({
         time: canonicalTime(item.time.zh),
         content: item.content.zh,
@@ -149,5 +149,14 @@ describe('summer school Plan.md fidelity', () => {
 
   it('deep-compares both source notes in order', () => {
     expect(notes.map((note) => note.zh)).toEqual(parseNotes(plan))
+  })
+
+  it('keeps the four measured marker centers in annotated-map order', () => {
+    expect(campusLocations.map(({ id, x, y }) => ({ id, x, y }))).toEqual([
+      { id: 'science-buildings', x: 5.76, y: 27.46 },
+      { id: 'yulan-canteen', x: 26.44, y: 54.16 },
+      { id: 'guangbiao-building', x: 37.41, y: 63.89 },
+      { id: 'second-dining-building', x: 43.39, y: 70.62 },
+    ])
   })
 })

@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
+import { CampusMap } from '../components/CampusMap'
 import { Card } from '../components/Card'
 import { SnlCourseLabel } from '../components/SnlCourseLabel'
 import {
@@ -9,7 +10,6 @@ import {
   notes,
   projects,
   schedule,
-  venueLabels,
   type LocalizedText,
 } from './summerSchoolData'
 
@@ -144,18 +144,7 @@ export function SummerSchoolPage() {
             </a>
           )}
         >
-          <img
-            className="campus-map"
-            src="/img/SJTUmap.webp"
-            width="1800"
-            height="905"
-            loading="lazy"
-            decoding="async"
-            alt={t('summerSchool.mapAlt')}
-          />
-          <div className="venue-pills">
-            {venueLabels.map((venue) => <span key={venue.zh}>{l(venue)}</span>)}
-          </div>
+          <CampusMap />
         </Card>
       </section>
 

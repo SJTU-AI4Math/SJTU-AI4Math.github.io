@@ -667,6 +667,11 @@ a:focus-visible {
   padding-top: 0.85rem;
 }
 
+.campus-map-stage {
+  position: relative;
+  isolation: isolate;
+}
+
 .campus-map {
   display: block;
   width: 100%;
@@ -678,20 +683,63 @@ a:focus-visible {
   background: var(--surface-hover);
 }
 
-.venue-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
+.campus-map-marker {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  width: clamp(1.8rem, 3vw, 2.35rem);
+  aspect-ratio: 1;
+  place-items: center;
+  padding: 0;
+  border: 2px solid white;
+  border-radius: 50%;
+  color: var(--page-bg);
+  background: var(--accent);
+  box-shadow: 0 4px 14px rgba(88, 15, 28, 0.42);
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 800;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.campus-map-marker:hover,
+.campus-map-marker:focus-visible,
+.campus-map-marker[aria-pressed='true'] {
+  z-index: 3;
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 32%, transparent), 0 6px 18px rgba(88, 15, 28, 0.48);
+  transform: translate(-50%, -50%) scale(1.14);
+}
+
+.campus-map-marker:focus-visible {
+  outline: 3px solid var(--surface);
+  outline-offset: 2px;
+}
+
+.campus-location-preview {
+  min-height: 3.2rem;
   margin-top: 0.8rem;
 }
 
-.venue-pills span {
-  padding: 0.35rem 0.65rem;
-  border: 1px solid var(--border);
-  border-radius: 999px;
+.campus-location-card .content-card-body > p {
+  margin: 0;
+}
+
+.campus-map-hint {
+  margin: 0;
+  padding: 0.75rem 0.9rem;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
   color: var(--text-muted);
-  background: color-mix(in srgb, var(--surface-hover) 75%, transparent);
-  font-size: 0.75rem;
+  background: color-mix(in srgb, var(--surface-hover) 72%, transparent);
+  font-size: 0.82rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .campus-map-marker {
+    transition: none;
+  }
 }
 
 .notice-list,

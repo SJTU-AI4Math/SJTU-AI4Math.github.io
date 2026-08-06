@@ -34,6 +34,14 @@ export interface Project {
   tone: 'violet' | 'blue' | 'green' | 'amber' | 'rose'
 }
 
+export interface CampusLocation {
+  id: string
+  name: LocalizedText
+  description: LocalizedText
+  x: number
+  y: number
+}
+
 const time = {
   morning: { zh: '上午 · 9:00–11:00', en: 'Morning · 9:00–11:00' },
   afternoon: { zh: '下午 · 14:00–17:00', en: 'Afternoon · 14:00–17:00' },
@@ -50,7 +58,7 @@ export const schedule: ScheduleDay[] = [
   {
     id: 'aug-23',
     date: text('8 月 23 日', 'August 23'),
-    location: text('地点未定', 'Venue TBD'),
+    location: text('理科群楼六号楼 440 讨论室', 'Science Building 6, Room 440 Discussion Room'),
     slots: [slot(time.evening, '报道、入住、领取材料等', 'Registration, check-in, and materials pickup')],
   },
   {
@@ -305,9 +313,45 @@ export const notes = [
   text('除 8.24 晚外，晚间均不强制要求到场；“无穷类型咖啡”暑校会同时在线上进行，学员可与线上社区成员共同结队参与课题、讨论、答疑。', 'Except for the evening of August 24, evening attendance is optional. The Infinite Type Café summer school will also run online, allowing students to team up with online community members for projects, discussion, and Q&A.'),
 ]
 
-export const venueLabels = [
-  text('光彪楼 206', 'Guangbiao Building, Room 206'),
-  text('理科群楼 5-6 号楼 300', 'Science Buildings 5–6, Room 300'),
+// Percent centers measured from the four red rings in the 1823×914 annotated reference.
+export const campusLocations: CampusLocation[] = [
+  {
+    id: 'science-buildings',
+    name: text('理科群楼 5-6 号楼', 'Science Buildings 5–6'),
+    description: text(
+      '报道与 8 月 28 日上课地点。23 日晚在六号楼 440 讨论室；28 日的 300 房间位于五号楼与六号楼之间的连廊上。',
+      'Check-in and the August 28 classes are here. On the evening of August 23, meet in the Room 440 discussion room in Building 6; Room 300 for August 28 is on the connecting corridor between Buildings 5 and 6.',
+    ),
+    x: 5.76,
+    y: 27.46,
+  },
+  {
+    id: 'yulan-canteen',
+    name: text('玉兰苑', 'Yulan Canteen'),
+    description: text(
+      '食堂，支持微信 / 支付宝直接支付。',
+      'Campus canteen accepting direct payment by WeChat Pay or Alipay.',
+    ),
+    x: 26.44,
+    y: 54.16,
+  },
+  {
+    id: 'guangbiao-building',
+    name: text('光彪楼', 'Guangbiao Building'),
+    description: text('主要上课地点。', 'The main teaching venue.'),
+    x: 37.41,
+    y: 63.89,
+  },
+  {
+    id: 'second-dining-building',
+    name: text('第二餐饮大楼', 'Second Dining Building'),
+    description: text(
+      '二楼有餐厅，支持微信 / 支付宝直接支付。',
+      'Restaurants are available on the second floor and accept direct payment by WeChat Pay or Alipay.',
+    ),
+    x: 43.39,
+    y: 70.62,
+  },
 ]
 
 export function localize(value: LocalizedText, language: string | undefined): string {

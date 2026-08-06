@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { App } from './App'
@@ -22,6 +22,8 @@ describe('application shell', () => {
     expect(document.querySelector('.summer-hero-metrics')).not.toBeInTheDocument()
 
     const scheduleTable = screen.getByRole('table', { name: '日程安排' })
+    const august23 = within(scheduleTable).getByRole('row', { name: /8 月 23 日/ })
+    expect(within(august23).getByText('理科群楼六号楼 440 讨论室')).toBeInTheDocument()
     const august24 = within(scheduleTable).getByRole('row', { name: /8 月 24 日/ })
     const typeTheorySnl = within(august24).getByLabelText('类型论')
     expect(typeTheorySnl).toHaveAttribute('data-snl-course', 'course-1a')
@@ -44,6 +46,24 @@ describe('application shell', () => {
       'href',
       'https://map.sjtu.edu.cn/voxel#world',
     )
+    const venueCard = screen.getByRole('article', { name: '地点与校园地图' })
+    const venueMarkers = within(venueCard).getAllByRole('button', { name: /查看.+介绍/ })
+    expect(venueMarkers).toHaveLength(4)
+    await userEvent.hover(within(venueCard).getByRole('button', { name: '查看理科群楼 5-6 号楼介绍' }))
+    expect(within(venueCard).getByRole('article', { name: '理科群楼 5-6 号楼' })).toHaveTextContent(
+      '23 日晚在六号楼 440 讨论室',
+    )
+    await userEvent.hover(within(venueCard).getByRole('button', { name: '查看第二餐饮大楼介绍' }))
+    expect(within(venueCard).getByRole('article', { name: '第二餐饮大楼' })).toHaveTextContent(
+      '二楼有餐厅，支持微信 / 支付宝直接支付',
+    )
+    const yulanMarker = within(venueCard).getByRole('button', { name: '查看玉兰苑介绍' })
+    fireEvent.focus(yulanMarker)
+    expect(within(venueCard).getByRole('article', { name: '玉兰苑' })).toHaveTextContent('食堂')
+    const guangbiaoMarker = within(venueCard).getByRole('button', { name: '查看光彪楼介绍' })
+    await userEvent.click(guangbiaoMarker)
+    expect(guangbiaoMarker).toHaveAttribute('aria-pressed', 'true')
+    expect(within(venueCard).getByRole('article', { name: '光彪楼' })).toHaveTextContent('主要上课地点')
     expect(screen.getByText(/Lean 4 安装问题尽量在暑校开始前解决/)).toBeInTheDocument()
     expect(screen.getByText(/其中部分（尤其是元编程部分）课题也许是相当困难的/)).toBeInTheDocument()
     expect(screen.getByText(/也许这些工作会为你的学术生涯带来转变/)).toBeInTheDocument()
@@ -62,9 +82,18 @@ describe('application shell', () => {
     expect(screen.getByRole('heading', { name: 'Courses' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Projects' })).toBeInTheDocument()
     expect(screen.getByRole('row', { name: /August 24/ })).toHaveTextContent('Type Theory')
+    expect(screen.getByRole('row', { name: /August 23/ })).toHaveTextContent(
+      'Science Building 6, Room 440 Discussion Room',
+    )
     const venueCard = screen.getByRole('article', { name: 'Venues & Campus Map' })
-    expect(within(venueCard).getByText('Guangbiao Building, Room 206')).toBeInTheDocument()
-    expect(within(venueCard).getByText('Science Buildings 5–6, Room 300')).toBeInTheDocument()
+    await user.hover(within(venueCard).getByRole('button', { name: 'View details for Guangbiao Building' }))
+    expect(within(venueCard).getByRole('article', { name: 'Guangbiao Building' })).toHaveTextContent(
+      'The main teaching venue',
+    )
+    await user.hover(within(venueCard).getByRole('button', { name: 'View details for Science Buildings 5–6' }))
+    expect(within(venueCard).getByRole('article', { name: 'Science Buildings 5–6' })).toHaveTextContent(
+      'Room 440 discussion room in Building 6',
+    )
   })
 
   it('shows a lecture placeholder on the stable nested route', async () => {
