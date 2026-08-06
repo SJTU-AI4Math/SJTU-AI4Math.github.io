@@ -3,7 +3,8 @@ import { Link } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
 import { CampusMap } from '../components/CampusMap'
 import { Card } from '../components/Card'
-import { SnlCourseLabel } from '../components/SnlCourseLabel'
+import { FloatingCardPopover } from '../components/FloatingCardPopover'
+import { SnlCourseLabel, type PopoverShowMode } from '../components/SnlCourseLabel'
 import {
   courses,
   localize,
@@ -39,9 +40,31 @@ export function SummerSchoolPage() {
   const { i18n, t } = useTranslation()
   const language = i18n.resolvedLanguage
   const l = (value: LocalizedText) => localize(value, language)
-  const [activeCourseId, setActiveCourseId] = useState(courses[0].id)
-  const setActiveCourse = useCallback((courseId: string) => setActiveCourseId(courseId), [])
-  const activeCourse = courses.find((course) => course.id === activeCourseId) ?? courses[0]
+  const [activeCoursePopover, setActiveCoursePopover] = useState<{
+    courseId: string
+    anchor: HTMLElement
+    pinned: boolean
+  } | null>(null)
+  const showCoursePopover = useCallback((
+    courseId: string,
+    anchor: HTMLElement,
+    mode: PopoverShowMode,
+  ) => {
+    setActiveCoursePopover((current) => {
+      if (mode === 'transient' && current?.courseId === courseId && current.pinned) return current
+      if (mode === 'pinned' && current?.courseId === courseId && current.pinned) return null
+      return { courseId, anchor, pinned: mode === 'pinned' }
+    })
+  }, [])
+  const hideCoursePopover = useCallback((courseId: string, force = false) => {
+    setActiveCoursePopover((current) => (
+      current?.courseId === courseId && (force || !current.pinned) ? null : current
+    ))
+  }, [])
+  const dismissCoursePopover = useCallback(() => setActiveCoursePopover(null), [])
+  const activeCourse = activeCoursePopover
+    ? courses.find((course) => course.id === activeCoursePopover.courseId) ?? null
+    : null
   const courseForContent = (content: LocalizedText) => courses.find(
     (course) => course.title.zh === content.zh || course.title.en === content.en,
   )
@@ -49,7 +72,13 @@ export function SummerSchoolPage() {
   const renderScheduleContent = (content: LocalizedText) => {
     const course = courseForContent(content)
     return course ? (
-      <SnlCourseLabel courseId={course.id} label={l(course.title)} onHover={setActiveCourse} />
+      <SnlCourseLabel
+        courseId={course.id}
+        isOpen={activeCoursePopover?.courseId === course.id}
+        label={l(course.title)}
+        onHide={hideCoursePopover}
+        onShow={showCoursePopover}
+      />
     ) : l(content)
   }
 
@@ -104,7 +133,14 @@ export function SummerSchoolPage() {
             </tbody>
           </table>
         </div>
-        <div className="schedule-course-preview" data-testid="schedule-course-preview" aria-live="polite">
+        {activeCourse && activeCoursePopover ? (
+          <FloatingCardPopover
+            anchor={activeCoursePopover.anchor}
+            contentKey={activeCourse.id}
+            id="course-detail-popover"
+            onDismiss={dismissCoursePopover}
+            testId="course-popover"
+          >
           <Card
             tone={activeCourse.tone}
             eyebrow={`${t('summerSchool.course')} ${activeCourse.code}`}
@@ -117,7 +153,8 @@ export function SummerSchoolPage() {
               </ul>
             ) : <p>{t('summerSchool.lectureNotice')}</p>}
           </Card>
-        </div>
+          </FloatingCardPopover>
+        ) : null}
       </section>
 
       <section id="venue" className="summer-section" aria-labelledby="venue-title">

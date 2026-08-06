@@ -598,15 +598,13 @@ a:focus-visible {
   border: 1px solid color-mix(in srgb, var(--accent) 26%, var(--border));
   border-radius: 6px;
   background: var(--accent-soft);
-  cursor: default;
+  cursor: pointer;
   outline: none;
 }
 
 .schedule-course-snl:focus-visible {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent);
 }
-
-.schedule-course-preview { margin-top: 1rem; }
 
 .card-link {
   display: block;
@@ -687,12 +685,12 @@ a:focus-visible {
   position: absolute;
   z-index: 2;
   display: grid;
-  width: clamp(1.8rem, 3vw, 2.35rem);
-  aspect-ratio: 1;
+  min-width: clamp(2rem, 3.4vw, 2.6rem);
+  height: clamp(1.6rem, 2.7vw, 2rem);
   place-items: center;
-  padding: 0;
+  padding: 0 0.55rem;
   border: 2px solid white;
-  border-radius: 50%;
+  border-radius: 999px;
   color: var(--page-bg);
   background: var(--accent);
   box-shadow: 0 4px 14px rgba(88, 15, 28, 0.42);
@@ -700,16 +698,41 @@ a:focus-visible {
   font-size: 0.72rem;
   font-weight: 800;
   cursor: pointer;
-  transform: translate(-50%, -50%);
-  transition: transform 150ms ease, box-shadow 150ms ease;
+  transform: translate(-50%, calc(-100% - 8px));
+  transition: box-shadow 150ms ease, filter 150ms ease;
+}
+
+.campus-map-marker::before,
+.campus-map-marker::after {
+  position: absolute;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
+  content: '';
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.campus-map-marker::before {
+  bottom: -10px;
+  border-top: 10px solid white;
+}
+
+.campus-map-marker::after {
+  bottom: -7px;
+  border-right-width: 6px;
+  border-left-width: 6px;
+  border-top: 8px solid var(--accent);
 }
 
 .campus-map-marker:hover,
 .campus-map-marker:focus-visible,
-.campus-map-marker[aria-pressed='true'] {
+.campus-map-marker[aria-expanded='true'] {
   z-index: 3;
+  filter: saturate(1.1);
   box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 32%, transparent), 0 6px 18px rgba(88, 15, 28, 0.48);
-  transform: translate(-50%, -50%) scale(1.14);
 }
 
 .campus-map-marker:focus-visible {
@@ -717,28 +740,45 @@ a:focus-visible {
   outline-offset: 2px;
 }
 
-.campus-location-preview {
-  min-height: 3.2rem;
-  margin-top: 0.8rem;
-}
-
 .campus-location-card .content-card-body > p {
   margin: 0;
 }
 
-.campus-map-hint {
-  margin: 0;
-  padding: 0.75rem 0.9rem;
-  border: 1px dashed var(--border);
-  border-radius: 10px;
-  color: var(--text-muted);
-  background: color-mix(in srgb, var(--surface-hover) 72%, transparent);
-  font-size: 0.82rem;
+.floating-card-popover {
+  position: fixed;
+  z-index: 1000;
+  width: min(26rem, calc(100vw - 1.5rem));
+  max-height: calc(100vh - 1.5rem);
+  overflow: auto;
+  overscroll-behavior: contain;
+  pointer-events: auto;
+  filter: drop-shadow(0 18px 30px rgba(15, 23, 42, 0.2));
+  animation: floating-card-in 140ms ease-out;
+}
+
+.floating-card-popover .content-card {
+  background: var(--page-bg);
+}
+
+@keyframes floating-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .campus-map-marker {
     transition: none;
+  }
+
+  .floating-card-popover {
+    animation: none;
   }
 }
 

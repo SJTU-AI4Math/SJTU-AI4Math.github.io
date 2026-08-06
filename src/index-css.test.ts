@@ -5,8 +5,8 @@ import { describe, expect, it } from 'vitest'
 
 const css = readFileSync(resolve(process.cwd(), 'src/index.css'), 'utf8')
 
-function block(selector: string) {
-  const start = css.indexOf(`${selector} {`)
+function block(selector: string, last = false) {
+  const start = last ? css.lastIndexOf(`${selector} {`) : css.indexOf(`${selector} {`)
   if (start < 0) throw new Error(`Missing CSS block: ${selector}`)
   const bodyStart = css.indexOf('{', start) + 1
   const end = css.indexOf('}', bodyStart)
@@ -40,5 +40,19 @@ describe('campus map marker contrast', () => {
     for (const theme of [block(':root'), block(":root[data-theme='dark']")]) {
       expect(contrast(hexVariable(theme, '--accent'), hexVariable(theme, '--page-bg'))).toBeGreaterThanOrEqual(4.5)
     }
+  })
+
+  it('positions the speech-bubble tail tip exactly on the measured map coordinate', () => {
+    const marker = block('.campus-map-marker')
+    const outerTail = block('.campus-map-marker::before', true)
+    const borderWidth = Number(marker.match(/border:\s*(\d+)px\s+solid/)?.[1])
+    const transformOffset = Number(marker.match(/translate\(-50%, calc\(-100% - (\d+)px\)\)/)?.[1])
+    const tailBottom = Number(outerTail.match(/bottom:\s*(-?\d+)px/)?.[1])
+    const tailHeight = Number(outerTail.match(/border-top:\s*(\d+)px/)?.[1])
+
+    expect(marker).toContain('border-radius: 999px')
+    expect(borderWidth).toBeGreaterThan(0)
+    expect(-tailBottom).toBe(tailHeight)
+    expect(transformOffset).toBe(tailHeight - borderWidth)
   })
 })
