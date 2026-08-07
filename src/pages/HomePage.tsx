@@ -7,7 +7,7 @@ const STARE_SWITCH_WINDOW_MS = 1_000
 const CAT_IMAGE_SOURCES = [
   '/img/day_cat.webp',
   '/img/night_cat.webp',
-  '/img/cat_stare.webp',
+  '/img/找个彩蛋还作弊真无聊.webp',
 ] as const
 
 export function HomePage() {
@@ -25,7 +25,7 @@ export function HomePage() {
     const images = CAT_IMAGE_SOURCES.map(async (source) => {
       const image = new Image()
       image.decoding = 'async'
-      image.fetchPriority = source === '/img/cat_stare.webp' ? 'high' : 'auto'
+      image.fetchPriority = source === '/img/找个彩蛋还作弊真无聊.webp' ? 'high' : 'auto'
       image.src = source
       await image.decode()
       return image
@@ -59,7 +59,7 @@ export function HomePage() {
   }, [areCatsReady, isStareLocked, theme])
 
   const catSrc = isStareLocked
-    ? '/img/cat_stare.webp'
+    ? '/img/找个彩蛋还作弊真无聊.webp'
     : isDark ? '/img/night_cat.webp' : '/img/day_cat.webp'
   const catAlt = isStareLocked
     ? t('home.stareCatAlt')

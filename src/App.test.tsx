@@ -214,7 +214,7 @@ describe('application shell', () => {
       expect(preloadedSources).toEqual([
         '/img/day_cat.webp',
         '/img/night_cat.webp',
-        '/img/cat_stare.webp',
+        '/img/找个彩蛋还作弊真无聊.webp',
       ])
     })
     expect(decode).toHaveBeenCalledTimes(3)
@@ -252,7 +252,7 @@ describe('application shell', () => {
     await user.click(screen.getByRole('button', { name: '切换到浅色模式' }))
     expect(screen.getByRole('img', { name: '凝视校园猫' })).toHaveAttribute(
       'src',
-      '/img/cat_stare.webp',
+      '/img/找个彩蛋还作弊真无聊.webp',
     )
   })
 
@@ -294,14 +294,14 @@ describe('application shell', () => {
 
     expect(screen.getByRole('img', { name: '凝视校园猫' })).toHaveAttribute(
       'src',
-      '/img/cat_stare.webp',
+      '/img/找个彩蛋还作弊真无聊.webp',
     )
 
     now = 1_600
     await user.click(screen.getByRole('button', { name: '切换到浅色模式' }))
     expect(screen.getByRole('img', { name: '凝视校园猫' })).toHaveAttribute(
       'src',
-      '/img/cat_stare.webp',
+      '/img/找个彩蛋还作弊真无聊.webp',
     )
   })
 
