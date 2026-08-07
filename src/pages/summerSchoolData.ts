@@ -163,7 +163,6 @@ export const courses: Course[] = [
     speaker: text('刘云天（猫猫）', 'Yuntian Liu (Maomao)'),
     topics: [
       text('Curry-Howard 对应：直觉主义逻辑、命题即类型、证明即程序、规约即求值', 'Intuitionistic logic, propositions as types, proofs as programs, and reduction as evaluation'),
-      text('范畴语义初步：不确定能不能讲', 'An introduction to categorical semantics (tentative)'),
       text('项证明：theorem 语法、sorry 语法、let 语法、have 语法', 'Term proofs: theorem, sorry, let, and have'),
     ],
   },
@@ -280,6 +279,11 @@ export const projects: Project[] = [
     id: 'verified-game', tone: 'green',
     category: text('函数式编程', 'Functional Programming'), title: text('小游戏开发与验证', 'Small-game Development and Verification'),
     description: text('Lean 4 在形式化验证器之余亦可作为函数式编程语言使用。尝试开发一个小游戏，并尝试发挥 Lean 4 的形式化验证能力保障游戏规则严格性。', 'Use Lean 4 as both a functional language and a verifier: build a small game and formally enforce the integrity of its rules.'),
+  },
+  {
+    id: 'lean4-type-theory', tone: 'green',
+    category: text('函数式编程', 'Functional Programming'), title: text('Lean4TypeTheory', 'Lean4TypeTheory'),
+    description: text('使用 Lean 4 作为元语言进行函数式编程，在无类型 λ-演算、简单类型 λ-演算以及各类不同类型论中选择一至多种重新建模，实现基本的自动化以及尝试对部分算法、理论的正确性和一致性进行证明。', 'Use Lean 4 as a metalanguage for functional programming. Re-model one or more of the untyped lambda calculus, simply typed lambda calculus, and various type theories; implement basic automation; and attempt to prove the correctness and consistency of selected algorithms and theories.'),
   },
   {
     id: 'lean-concurrency', tone: 'amber',

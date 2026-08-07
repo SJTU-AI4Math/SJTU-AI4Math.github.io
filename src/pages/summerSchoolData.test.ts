@@ -143,8 +143,28 @@ describe('summer school Plan.md fidelity', () => {
     expect(structuredCourses()).toEqual(parseCourses(plan))
   })
 
+  it('removes categorical semantics from course 2A', () => {
+    const course = courses.find(({ code }) => code === '2A')
+    expect(course?.topics.some(({ zh }) => zh.includes('范畴语义'))).toBe(false)
+    expect(plan).not.toContain('范畴语义')
+  })
+
   it('deep-compares project categories, descriptions, and per-project examples', () => {
     expect(structuredProjects()).toEqual(parseProjects(plan))
+  })
+
+  it('adds Lean4TypeTheory as the second functional-programming project', () => {
+    const existingIndex = projects.findIndex(({ id }) => id === 'verified-game')
+    const projectIndex = projects.findIndex(({ id }) => id === 'lean4-type-theory')
+    expect(projectIndex).toBe(existingIndex + 1)
+    expect(projects[projectIndex]).toMatchObject({
+      category: { zh: '函数式编程', en: 'Functional Programming' },
+      title: { zh: 'Lean4TypeTheory', en: 'Lean4TypeTheory' },
+      description: {
+        zh: '使用 Lean 4 作为元语言进行函数式编程，在无类型 λ-演算、简单类型 λ-演算以及各类不同类型论中选择一至多种重新建模，实现基本的自动化以及尝试对部分算法、理论的正确性和一致性进行证明。',
+        en: 'Use Lean 4 as a metalanguage for functional programming. Re-model one or more of the untyped lambda calculus, simply typed lambda calculus, and various type theories; implement basic automation; and attempt to prove the correctness and consistency of selected algorithms and theories.',
+      },
+    })
   })
 
   it('deep-compares both source notes in order', () => {
