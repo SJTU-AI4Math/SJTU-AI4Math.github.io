@@ -209,7 +209,6 @@ export const courses: Course[] = [
     topics: [
       text('副作用：语境阅读、语境写入、多值函数、异步函数、异常处理、IO 操作', 'Effects: context reads and writes, multivalued functions, async, exceptions, and IO'),
       text('单子：单子、绑定、do 语法', 'Monads, bind, and do notation'),
-      text('程序验证基础：小步语义、大步语义、指称语义', 'Foundations of program verification: small-step, big-step, and denotational semantics'),
     ],
   },
   {

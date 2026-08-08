@@ -149,6 +149,12 @@ describe('summer school Plan.md fidelity', () => {
     expect(plan).not.toContain('范畴语义')
   })
 
+  it('removes foundations of program verification from course 4B', () => {
+    const course = courses.find(({ code }) => code === '4B')
+    expect(course?.topics.some(({ zh }) => zh.includes('程序验证基础'))).toBe(false)
+    expect(plan).not.toContain('程序验证基础')
+  })
+
   it('deep-compares project categories, descriptions, and per-project examples', () => {
     expect(structuredProjects()).toEqual(parseProjects(plan))
   })
