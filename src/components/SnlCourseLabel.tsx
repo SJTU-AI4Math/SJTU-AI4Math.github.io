@@ -1,5 +1,6 @@
-import { useCallback, useMemo, useRef, type KeyboardEvent } from 'react'
+import { useCallback, useLayoutEffect, useMemo, useRef, type KeyboardEvent } from 'react'
 import {
+  clearSnlHoverHighlight,
   MacroDataDriver,
   parseSnlSyntaxTree,
   SnlInteractionDriver,
@@ -57,6 +58,9 @@ export function SnlCourseLabel({
     }),
     [courseId, onHide, show],
   )
+  useLayoutEffect(() => {
+    if (!isOpen && rootRef.current) clearSnlHoverHighlight(rootRef.current)
+  }, [isOpen])
   const handleKeyDown = (event: KeyboardEvent<HTMLSpanElement>) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
