@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@sjtu-ai4math/snl-basics": "^0.1.1",
+    "@sjtu-ai4math/snl-basics": "0.2.0",
     "@tanstack/react-router": "^1.170.19",
     "i18next": "^26.3.6",
     "katex": "^0.16.47",
