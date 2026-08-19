@@ -174,6 +174,20 @@ describe('application shell', () => {
     )
   })
 
+  it('renders the language switch with aligned independent glyph strokes', async () => {
+    render(<App initialEntries={['/']} />)
+
+    const button = await screen.findByRole('button', { name: 'Switch to English' })
+    expect([...button.querySelectorAll('svg path')].map((path) => path.getAttribute('d'))).toEqual([
+      'm5 8 6 6',
+      'm4 14 6-6 2-3',
+      'M2 5h12',
+      'M7 2h1',
+      'm22 22-5-10-5 10',
+      'M14 18h6',
+    ])
+  })
+
   it('shows a lecture placeholder on the stable nested route', async () => {
     render(<App initialEntries={['/summer-school/2026/lectures/type-theory']} />)
 

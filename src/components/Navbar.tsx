@@ -7,7 +7,12 @@ import { useTheme } from '../theme/theme-context'
 function LanguageIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M5 5h14M12 3v2m-2.5 0c-.5 4-2.8 7.2-6.5 9m5-5c1.5 2.5 3.5 4.3 6 5.5M14 21l3.5-9 3.5 9m-5.8-3h4.6" />
+      <path d="m5 8 6 6" />
+      <path d="m4 14 6-6 2-3" />
+      <path d="M2 5h12" />
+      <path d="M7 2h1" />
+      <path d="m22 22-5-10-5 10" />
+      <path d="M14 18h6" />
     </svg>
   )
 }
