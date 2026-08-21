@@ -139,6 +139,13 @@ describe('summer school Plan.md fidelity', () => {
     expect(structuredSchedule()).toEqual(parseSchedule(plan))
   })
 
+  it('removes every August 23 planning reference', () => {
+    expect(schedule.some(({ date }) => date.zh === '8 月 23 日')).toBe(false)
+    expect(plan).not.toMatch(/8\.23|8 月 23|23 日晚/)
+    expect(notes.some(({ zh }) => /8\.23|23 日晚/.test(zh))).toBe(false)
+    expect(campusLocations.some(({ description }) => /8 月 23|23 日晚/.test(description.zh))).toBe(false)
+  })
+
   it('deep-compares each course with its own speaker and ordered topics', () => {
     expect(structuredCourses()).toEqual(parseCourses(plan))
   })

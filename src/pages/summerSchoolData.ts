@@ -56,12 +56,6 @@ const slot = (timeLabel: LocalizedText, zh: string, en: string): ScheduleSlot =>
 
 export const schedule: ScheduleDay[] = [
   {
-    id: 'aug-23',
-    date: text('8 月 23 日', 'August 23'),
-    location: text('理科群楼六号楼 440 讨论室', 'Science Building 6, Room 440 Discussion Room'),
-    slots: [slot(time.evening, '报道、入住、领取材料等', 'Registration, check-in, and materials pickup')],
-  },
-  {
     id: 'aug-24',
     date: text('8 月 24 日', 'August 24'),
     location: text('光彪楼 206', 'Guangbiao Building, Room 206'),
@@ -312,7 +306,7 @@ export const projects: Project[] = [
 ]
 
 export const notes = [
-  text('Lean 4 安装问题尽量在暑校开始前解决。如遇到问题，建议求助 AI，亦可在学员群内询问。如无法在暑校开始前解决，请在 8.23 晚、8.24 午休、晚修或晚间求助助教。', 'Please resolve Lean 4 installation issues before the summer school where possible. Ask AI or the student group for help; remaining issues can be brought to teaching assistants on the evening of August 23 or during breaks and evening study on August 24.'),
+  text('Lean 4 安装问题尽量在暑校开始前解决。如遇到问题，建议求助 AI，亦可在学员群内询问。如无法在暑校开始前解决，请在 8.24 午休、晚修或晚间求助助教。', 'Please resolve Lean 4 installation issues before the summer school where possible. Ask AI or the student group for help; remaining issues can be brought to teaching assistants during breaks and evening study on August 24.'),
   text('除 8.24 晚外，晚间均不强制要求到场；“无穷类型咖啡”暑校会同时在线上进行，学员可与线上社区成员共同结队参与课题、讨论、答疑。', 'Except for the evening of August 24, evening attendance is optional. The Infinite Type Café summer school will also run online, allowing students to team up with online community members for projects, discussion, and Q&A.'),
 ]
 
@@ -322,8 +316,8 @@ export const campusLocations: CampusLocation[] = [
     id: 'science-buildings',
     name: text('理科群楼 5-6 号楼', 'Science Buildings 5–6'),
     description: text(
-      '报道与 8 月 28 日上课地点。23 日晚在六号楼 440 讨论室；28 日的 300 房间位于五号楼与六号楼之间的连廊上。',
-      'Check-in and the August 28 classes are here. On the evening of August 23, meet in the Room 440 discussion room in Building 6; Room 300 for August 28 is on the connecting corridor between Buildings 5 and 6.',
+      '8 月 28 日上课地点。300 房间位于五号楼与六号楼之间的连廊上。',
+      'Venue for the August 28 classes. Room 300 is on the connecting corridor between Buildings 5 and 6.',
     ),
     x: 5.76,
     y: 27.46,

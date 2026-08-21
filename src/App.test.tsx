@@ -56,8 +56,9 @@ describe('application shell', () => {
     expect(document.querySelector('.summer-hero-metrics')).not.toBeInTheDocument()
 
     const scheduleTable = screen.getByRole('table', { name: '日程安排' })
-    const august23 = within(scheduleTable).getByRole('row', { name: /8 月 23 日/ })
-    expect(within(august23).getByText('理科群楼六号楼 440 讨论室')).toBeInTheDocument()
+    expect(within(scheduleTable).queryByRole('row', { name: /8 月 23 日/ })).not.toBeInTheDocument()
+    expect(screen.getByText('正式课程与课题实践为 8 月 24–30 日。')).toBeInTheDocument()
+    expect(screen.getByText('地图标出了上课与用餐地点。')).toBeInTheDocument()
     const august24 = within(scheduleTable).getByRole('row', { name: /8 月 24 日/ })
     const typeTheorySnl = within(august24).getByLabelText('类型论')
     expect(typeTheorySnl).toHaveAttribute('data-snl-course', 'course-1a')
@@ -120,8 +121,9 @@ describe('application shell', () => {
     await userEvent.hover(within(venueCard).getByRole('button', { name: '查看理科群楼 5-6 号楼介绍' }))
     let venuePopover = screen.getByTestId('venue-popover')
     expect(venuePopover).toHaveAttribute('role', 'tooltip')
+    expect(within(venuePopover).getByRole('article', { name: '理科群楼 5-6 号楼' })).not.toHaveTextContent('23 日')
     expect(within(venuePopover).getByRole('article', { name: '理科群楼 5-6 号楼' })).toHaveTextContent(
-      '23 日晚在六号楼 440 讨论室',
+      '8 月 28 日上课地点',
     )
     await userEvent.hover(within(venueCard).getByRole('button', { name: '查看第二餐饮大楼介绍' }))
     venuePopover = screen.getByTestId('venue-popover')
@@ -160,17 +162,18 @@ describe('application shell', () => {
         .map((node) => node.getAttribute('data-name'))).toEqual(COURSE_MACRO_NAMES)
     })
     expect(document.querySelector('.schedule-course-snl [data-kind="fvar"]')).not.toBeInTheDocument()
-    expect(screen.getByRole('row', { name: /August 23/ })).toHaveTextContent(
-      'Science Building 6, Room 440 Discussion Room',
-    )
+    expect(screen.queryByRole('row', { name: /August 23/ })).not.toBeInTheDocument()
+    expect(screen.getByText('Courses and project work run August 24–30.')).toBeInTheDocument()
+    expect(screen.getByText('The map marks teaching and dining locations.')).toBeInTheDocument()
     const venueCard = screen.getByRole('article', { name: 'Venues & Campus Map' })
     await user.hover(within(venueCard).getByRole('button', { name: 'View details for Guangbiao Building' }))
     expect(within(screen.getByTestId('venue-popover')).getByRole('article', { name: 'Guangbiao Building' })).toHaveTextContent(
       'The main teaching venue',
     )
     await user.hover(within(venueCard).getByRole('button', { name: 'View details for Science Buildings 5–6' }))
+    expect(within(screen.getByTestId('venue-popover')).getByRole('article', { name: 'Science Buildings 5–6' })).not.toHaveTextContent('August 23')
     expect(within(screen.getByTestId('venue-popover')).getByRole('article', { name: 'Science Buildings 5–6' })).toHaveTextContent(
-      'Room 440 discussion room in Building 6',
+      'Venue for the August 28 classes',
     )
   })
 
