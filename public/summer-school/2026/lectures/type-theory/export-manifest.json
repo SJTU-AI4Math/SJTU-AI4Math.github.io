@@ -1,0 +1,14 @@
+{
+  "format": "snl-doc-extension-html-export-v1",
+  "sourceRepository": "SJTU-AI4Math/Summer-School-2026",
+  "sourceCommit": "64d326a",
+  "library": "1A-TypeTheory",
+  "extensionRepository": "SJTU-AI4Math/SNL-Doc-Extension",
+  "extensionCommit": "4c294b3",
+  "snlBasicsVersion": "0.3.2",
+  "interactive": true,
+  "entryCount": 162,
+  "exportShape": "directory",
+  "originalIndexSha256": "a67b4cce20e6874bc9c19608d5e88ecdc39d796778450c1d69ad66ac8d5984b2",
+  "siteIntegration": "Added only a back link and its scoped CSS; the Extension body, payloads, runtime, assets, and fonts are unchanged."
+}

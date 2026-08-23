@@ -207,14 +207,8 @@ export function SummerSchoolPage() {
           description={t('summerSchool.coursesIntro')}
         />
         <div className="course-grid card-list">
-          {courses.map((course) => (
-            <Link
-              key={course.id}
-              className="card-link"
-              to="/summer-school/2026/lectures/$lectureSlug"
-              params={{ lectureSlug: course.slug }}
-              aria-label={`${t('summerSchool.course')} ${course.code} · ${l(course.title)}`}
-            >
+          {courses.map((course) => {
+            const content = (
               <Card
                 className="course-card"
                 tone={course.tone}
@@ -228,8 +222,30 @@ export function SummerSchoolPage() {
                   </ul>
                 ) : <p>{t('summerSchool.lectureNotice')}</p>}
               </Card>
-            </Link>
-          ))}
+            )
+            const label = `${t('summerSchool.course')} ${course.code} · ${l(course.title)}`
+
+            return course.id === 'course-1a' ? (
+              <a
+                key={course.id}
+                className="card-link"
+                href="/summer-school/2026/lectures/type-theory/"
+                aria-label={label}
+              >
+                {content}
+              </a>
+            ) : (
+              <Link
+                key={course.id}
+                className="card-link"
+                to="/summer-school/2026/lectures/$lectureSlug"
+                params={{ lectureSlug: course.slug }}
+                aria-label={label}
+              >
+                {content}
+              </Link>
+            )
+          })}
         </div>
       </section>
 
