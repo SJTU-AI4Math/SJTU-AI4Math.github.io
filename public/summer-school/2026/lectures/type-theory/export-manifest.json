@@ -1,7 +1,7 @@
 {
   "format": "snl-doc-extension-html-export-v1",
   "sourceRepository": "SJTU-AI4Math/Summer-School-2026",
-  "sourceCommit": "64d326a",
+  "sourceCommit": "b94c7f4",
   "library": "1A-TypeTheory",
   "extensionRepository": "SJTU-AI4Math/SNL-Doc-Extension",
   "extensionCommit": "4c294b3",
