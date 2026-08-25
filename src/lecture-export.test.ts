@@ -242,14 +242,31 @@ describe('3A Mathlib Explorer static export', () => {
       edgeCount: number
       coordinates: string
     }
+    const graph = JSON.parse(graphData.toString('utf8')) as {
+      nodes: Array<{ x: number; y: number; succ: number[] }>
+    }
+    const manifest = JSON.parse(readFileSync(resolve(mathlibExplorerRoot, 'export-manifest.json'), 'utf8')) as {
+      version: number
+      files: Record<string, string>
+    }
 
     expect(sha256(graphData)).toBe('e9c394c8f8959161253709ab6a69fc07e9f8c8bc11d93413eecb930fd55de0de')
+    expect(graph.nodes).toHaveLength(9544)
+    expect(graph.nodes.reduce((sum, node) => sum + node.succ.length, 0)).toBe(239427)
+    expect(graph.nodes.every((node) => Number.isFinite(node.x) && Number.isFinite(node.y))).toBe(true)
+    expect(graph.nodes.every((node) => node.succ.every((index) => Number.isInteger(index) && index >= 0 && index < graph.nodes.length))).toBe(true)
     expect(provenance).toMatchObject({
       sha256: 'e9c394c8f8959161253709ab6a69fc07e9f8c8bc11d93413eecb930fd55de0de',
       nodeCount: 9544,
       edgeCount: 239427,
       coordinates: 'precomputed; preserved verbatim',
     })
+    expect(manifest.version).toBe(1)
+    const actualFiles = listFilesRecursively(mathlibExplorerRoot).filter((file) => file !== 'export-manifest.json')
+    expect(actualFiles).toEqual(Object.keys(manifest.files).sort())
+    for (const [file, digest] of Object.entries(manifest.files)) {
+      expect(sha256(readFileSync(resolve(mathlibExplorerRoot, file)))).toBe(digest)
+    }
     expect(html).toContain('Mathlib Explorer')
     expect(clientJavaScript).toContain('Yugu233')
     expect(clientJavaScript).toContain('https://github.com/Crispher')
