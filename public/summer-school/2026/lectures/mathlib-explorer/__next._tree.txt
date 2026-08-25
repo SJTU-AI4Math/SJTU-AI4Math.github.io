@@ -1,3 +1,3 @@
 :HL["/summer-school/2026/lectures/mathlib-explorer/_next/static/css/e5a29532a0fc9018.css","style"]
 :HL["/summer-school/2026/lectures/mathlib-explorer/_next/static/css/e36d096df6095f07.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}},"staleTime":300,"buildId":"8747XpHashDtrKPRHYWh3"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}},"staleTime":300,"buildId":"0GqsaBEZztKn1E_WSfbZs"}

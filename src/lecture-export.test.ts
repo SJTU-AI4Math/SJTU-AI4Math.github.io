@@ -252,7 +252,7 @@ describe('3A Mathlib Explorer static export', () => {
     })
     expect(html).toContain('Mathlib Explorer')
     expect(clientJavaScript).toContain('Yugu233')
-    expect(clientJavaScript).toContain('https://github.com/Yugu233')
+    expect(clientJavaScript).toContain('https://github.com/Crispher')
     expect(clientJavaScript).toContain('https://space.bilibili.com/613069855')
     expect(clientJavaScript).toContain('https://store.steampowered.com/app/3635130')
 
