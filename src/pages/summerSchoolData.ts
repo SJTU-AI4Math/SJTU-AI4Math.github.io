@@ -193,7 +193,7 @@ export const courses: Course[] = [
   {
     id: 'course-4a', slug: 'abstract-analysis', code: '4A', tone: 'amber',
     title: text('抽象分析', 'Abstract Analysis'),
-    speaker: text('刘云天（猫猫）', 'Yuntian Liu (Maomao)'),
+    speaker: text('解淑涵（算算）', 'Shuhan Xie (Suansuan)'),
     topics: [text('分析学结构化：ε-δ 语言、度量空间、拓扑空间、滤子', 'Structuring analysis: epsilon–delta language, metric spaces, topological spaces, and filters')],
   },
   {

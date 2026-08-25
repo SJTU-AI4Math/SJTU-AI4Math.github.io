@@ -150,6 +150,15 @@ describe('summer school Plan.md fidelity', () => {
     expect(structuredCourses()).toEqual(parseCourses(plan))
   })
 
+  it('assigns course 4A to 解淑涵（算算）', () => {
+    const course = courses.find(({ code }) => code === '4A')
+    expect(course?.speaker).toEqual({
+      zh: '解淑涵（算算）',
+      en: 'Shuhan Xie (Suansuan)',
+    })
+    expect(parseCourses(plan).find(({ code }) => code === '4A')?.speaker).toBe('解淑涵（算算）')
+  })
+
   it('removes categorical semantics from course 2A', () => {
     const course = courses.find(({ code }) => code === '2A')
     expect(course?.topics.some(({ zh }) => zh.includes('范畴语义'))).toBe(false)
