@@ -103,6 +103,10 @@ describe('application shell', () => {
     const courseCard = screen.getByRole('link', { name: /课程 1A · 类型论/ })
     expect(document.querySelectorAll('.course-grid > .card-link')).toHaveLength(11)
     expect(courseCard).toHaveAttribute('href', '/summer-school/2026/lectures/type-theory/')
+    expect(screen.getByRole('link', { name: /课程 2A · Curry-Howard 对应/ })).toHaveAttribute(
+      'href',
+      '/summer-school/2026/lectures/curry-howard/',
+    )
     expect(courseCard).toHaveTextContent('刘云天（猫猫）')
     expect(screen.getByRole('article', { name: '智能体框架搭建' })).toBeInTheDocument()
     expect(screen.getByRole('img', { name: '上海交通大学校园地图' })).toHaveAttribute(

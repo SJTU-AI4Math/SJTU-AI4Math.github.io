@@ -225,11 +225,17 @@ export function SummerSchoolPage() {
             )
             const label = `${t('summerSchool.course')} ${course.code} · ${l(course.title)}`
 
-            return course.id === 'course-1a' ? (
+            const exportedLecturePath = course.id === 'course-1a'
+              ? '/summer-school/2026/lectures/type-theory/'
+              : course.id === 'course-2a'
+                ? '/summer-school/2026/lectures/curry-howard/'
+                : null
+
+            return exportedLecturePath ? (
               <a
                 key={course.id}
                 className="card-link"
-                href="/summer-school/2026/lectures/type-theory/"
+                href={exportedLecturePath}
                 aria-label={label}
               >
                 {content}

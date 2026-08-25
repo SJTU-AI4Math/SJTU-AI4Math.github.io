@@ -3,6 +3,7 @@ import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 const exportRoot = resolve('public/summer-school/2026/lectures/type-theory')
+const export2ARoot = resolve('public/summer-school/2026/lectures/curry-howard')
 
 describe('1A Extension HTML export', () => {
   it('ships the complete interactive Extension export at the stable lecture route', () => {
@@ -19,6 +20,22 @@ describe('1A Extension HTML export', () => {
     expect(popovers).toContain('rgb(55, 65, 81)')
     expect(popovers).toContain('rgb(224, 123, 0)')
     expect(popovers).toContain('rgb(255, 235, 210)')
+    expect(html).toContain('href="/summer-school/2026#courses"')
+  })
+})
+
+describe('2A Extension HTML export', () => {
+  it('ships the complete interactive Extension export at the stable lecture route', () => {
+    const html = readFileSync(resolve(export2ARoot, 'index.html'), 'utf8')
+    const popovers = readFileSync(resolve(export2ARoot, 'popovers.js'), 'utf8')
+
+    expect(html).toContain('data-snl-interactive="true"')
+    expect(html.match(/data-snl-route-id=/g)).toHaveLength(48)
+    expect(html.match(/data-entry-id=/g)).toHaveLength(48)
+    expect(html).toContain('globalThis.__SNL_EXPORT_VARIANTS__')
+    expect(html).toContain('src="popovers.js"')
+    expect(popovers).toContain('window.__SNL_POPOVERS__')
+    expect(popovers).toContain('window.__SNL_EXPORT_VARIANTS__')
     expect(html).toContain('href="/summer-school/2026#courses"')
   })
 })
