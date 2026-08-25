@@ -227,9 +227,11 @@ export function SummerSchoolPage() {
 
             const exportedLecturePath = course.id === 'course-1a'
               ? '/summer-school/2026/lectures/type-theory/'
-              : course.id === 'course-2a'
-                ? '/summer-school/2026/lectures/curry-howard/'
-                : null
+              : course.id === 'course-1b'
+                ? '/summer-school/2026/lectures/induction/'
+                : course.id === 'course-2a'
+                  ? '/summer-school/2026/lectures/curry-howard/'
+                  : null
 
             return exportedLecturePath ? (
               <a

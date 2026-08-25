@@ -101,8 +101,10 @@ describe('application shell', () => {
     expect(within(august24).getByText('光彪楼 206')).toBeInTheDocument()
 
     const courseCard = screen.getByRole('link', { name: /课程 1A · 类型论/ })
+    const inductionCard = screen.getByRole('link', { name: /课程 1B · 归纳法/ })
     expect(document.querySelectorAll('.course-grid > .card-link')).toHaveLength(11)
     expect(courseCard).toHaveAttribute('href', '/summer-school/2026/lectures/type-theory/')
+    expect(inductionCard).toHaveAttribute('href', '/summer-school/2026/lectures/induction/')
     expect(screen.getByRole('link', { name: /课程 2A · Curry-Howard 对应/ })).toHaveAttribute(
       'href',
       '/summer-school/2026/lectures/curry-howard/',
