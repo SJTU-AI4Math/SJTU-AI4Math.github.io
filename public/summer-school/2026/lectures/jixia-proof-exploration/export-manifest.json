@@ -1,0 +1,713 @@
+{
+  "version": 1,
+  "source": {
+    "repository": "SJTU-AI4Math/Summer-School-2026",
+    "commit": "640e39e20ec0155b7067a3d570a469e1c1aba1b9"
+  },
+  "exporter": {
+    "repository": "SJTU-AI4Math/SNL-Doc-Extension",
+    "commit": "e8874c7c6958af55730863749824c521af228a43"
+  },
+  "library": {
+    "slug": "2B-TacticProofs",
+    "entryCount": 141,
+    "interactive": true,
+    "outputShape": "folder"
+  },
+  "rawIndexSha256": "70861e13a2e3d0f38daf93dd9111af2ef587afa2cf35b8a151a6498eb9576307",
+  "postProcessing": [
+    "Add /summer-school/2026#courses back link and scoped .sjtu-site-back CSS."
+  ],
+  "entries": [
+    {
+      "routeId": "n_2B_sec_fundamentals",
+      "entryId": "2B.sec.fundamentals"
+    },
+    {
+      "routeId": "n_2B_def_context",
+      "entryId": "2B.def.context"
+    },
+    {
+      "routeId": "n_2B_def_goal",
+      "entryId": "2B.def.goal"
+    },
+    {
+      "routeId": "n_2B_def_tactic",
+      "entryId": "2B.def.tactic"
+    },
+    {
+      "routeId": "n_2B_def_state",
+      "entryId": "2B.def.state"
+    },
+    {
+      "routeId": "n_2B_def_transition",
+      "entryId": "2B.def.transition"
+    },
+    {
+      "routeId": "n_2B_sec_basics",
+      "entryId": "2B.sec.basics"
+    },
+    {
+      "routeId": "n_2B_tac_by",
+      "entryId": "2B.tac.by"
+    },
+    {
+      "routeId": "n_2B_rmk_by",
+      "entryId": "2B.rmk.by"
+    },
+    {
+      "routeId": "n_2B_tac_sorry",
+      "entryId": "2B.tac.sorry"
+    },
+    {
+      "routeId": "n_2B_rmk_sorry",
+      "entryId": "2B.rmk.sorry"
+    },
+    {
+      "routeId": "n_2B_tac_exact",
+      "entryId": "2B.tac.exact"
+    },
+    {
+      "routeId": "n_2B_rmk_exact",
+      "entryId": "2B.rmk.exact"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_exact_01",
+      "entryId": "2B.xmp.tactic.exact-01"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_exact_02",
+      "entryId": "2B.xmp.tactic.exact-02"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_exact_03",
+      "entryId": "2B.xmp.tactic.exact-03"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_exact_04",
+      "entryId": "2B.xmp.tactic.exact-04"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_exact_05",
+      "entryId": "2B.xmp.tactic.exact-05"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_exact_06",
+      "entryId": "2B.xmp.tactic.exact-06"
+    },
+    {
+      "routeId": "n_2B_tac_assumption",
+      "entryId": "2B.tac.assumption"
+    },
+    {
+      "routeId": "n_2B_rmk_assumption",
+      "entryId": "2B.rmk.assumption"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_assumption_01",
+      "entryId": "2B.xmp.tactic.assumption-01"
+    },
+    {
+      "routeId": "n_2B_tac_rfl",
+      "entryId": "2B.tac.rfl"
+    },
+    {
+      "routeId": "n_2B_rmk_rfl",
+      "entryId": "2B.rmk.rfl"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_rfl_01",
+      "entryId": "2B.xmp.tactic.rfl-01"
+    },
+    {
+      "routeId": "n_2B_tac_let",
+      "entryId": "2B.tac.let"
+    },
+    {
+      "routeId": "n_2B_rmk_let",
+      "entryId": "2B.rmk.let"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_let_01",
+      "entryId": "2B.xmp.tactic.let-01"
+    },
+    {
+      "routeId": "n_2B_tac_have",
+      "entryId": "2B.tac.have"
+    },
+    {
+      "routeId": "n_2B_rmk_have",
+      "entryId": "2B.rmk.have"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_have_01",
+      "entryId": "2B.xmp.tactic.have-01"
+    },
+    {
+      "routeId": "n_2B_sec_semi",
+      "entryId": "2B.sec.semi"
+    },
+    {
+      "routeId": "n_2B_tac_intro",
+      "entryId": "2B.tac.intro"
+    },
+    {
+      "routeId": "n_2B_rmk_intro",
+      "entryId": "2B.rmk.intro"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_intro_01",
+      "entryId": "2B.xmp.tactic.intro-01"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_intro_02",
+      "entryId": "2B.xmp.tactic.intro-02"
+    },
+    {
+      "routeId": "n_2B_tac_apply",
+      "entryId": "2B.tac.apply"
+    },
+    {
+      "routeId": "n_2B_rmk_apply",
+      "entryId": "2B.rmk.apply"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_apply_01",
+      "entryId": "2B.xmp.tactic.apply-01"
+    },
+    {
+      "routeId": "n_2B_tac_refine",
+      "entryId": "2B.tac.refine"
+    },
+    {
+      "routeId": "n_2B_rmk_refine",
+      "entryId": "2B.rmk.refine"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_refine_01",
+      "entryId": "2B.xmp.tactic.refine-01"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_refine_02",
+      "entryId": "2B.xmp.tactic.refine-02"
+    },
+    {
+      "routeId": "n_2B_tac_cases",
+      "entryId": "2B.tac.cases"
+    },
+    {
+      "routeId": "n_2B_rmk_cases",
+      "entryId": "2B.rmk.cases"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_cases_01",
+      "entryId": "2B.xmp.tactic.cases-01"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_cases_02",
+      "entryId": "2B.xmp.tactic.cases-02"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_cases_03",
+      "entryId": "2B.xmp.tactic.cases-03"
+    },
+    {
+      "routeId": "n_2B_tac_rcases",
+      "entryId": "2B.tac.rcases"
+    },
+    {
+      "routeId": "n_2B_rmk_rcases",
+      "entryId": "2B.rmk.rcases"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_rcases_01",
+      "entryId": "2B.xmp.tactic.rcases-01"
+    },
+    {
+      "routeId": "n_2B_tac_induction",
+      "entryId": "2B.tac.induction"
+    },
+    {
+      "routeId": "n_2B_rmk_induction",
+      "entryId": "2B.rmk.induction"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_induction_01",
+      "entryId": "2B.xmp.tactic.induction-01"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_induction_02",
+      "entryId": "2B.xmp.tactic.induction-02"
+    },
+    {
+      "routeId": "n_2B_tac_unfold",
+      "entryId": "2B.tac.unfold"
+    },
+    {
+      "routeId": "n_2B_rmk_unfold",
+      "entryId": "2B.rmk.unfold"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_unfold_01",
+      "entryId": "2B.xmp.tactic.unfold-01"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_unfold_02",
+      "entryId": "2B.xmp.tactic.unfold-02"
+    },
+    {
+      "routeId": "n_2B_tac_change",
+      "entryId": "2B.tac.change"
+    },
+    {
+      "routeId": "n_2B_rmk_change",
+      "entryId": "2B.rmk.change"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_change_01",
+      "entryId": "2B.xmp.tactic.change-01"
+    },
+    {
+      "routeId": "n_2B_tac_show",
+      "entryId": "2B.tac.show"
+    },
+    {
+      "routeId": "n_2B_rmk_show",
+      "entryId": "2B.rmk.show"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_show_01",
+      "entryId": "2B.xmp.tactic.show-01"
+    },
+    {
+      "routeId": "n_2B_tac_exfalso",
+      "entryId": "2B.tac.exfalso"
+    },
+    {
+      "routeId": "n_2B_rmk_exfalso",
+      "entryId": "2B.rmk.exfalso"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_exfalso_01",
+      "entryId": "2B.xmp.tactic.exfalso-01"
+    },
+    {
+      "routeId": "n_2B_tac_by_cases",
+      "entryId": "2B.tac.by-cases"
+    },
+    {
+      "routeId": "n_2B_rmk_by_cases",
+      "entryId": "2B.rmk.by-cases"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_by_cases_01",
+      "entryId": "2B.xmp.tactic.by-cases-01"
+    },
+    {
+      "routeId": "n_2B_tac_by_contra",
+      "entryId": "2B.tac.by-contra"
+    },
+    {
+      "routeId": "n_2B_rmk_by_contra",
+      "entryId": "2B.rmk.by-contra"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_by_contra_01",
+      "entryId": "2B.xmp.tactic.by-contra-01"
+    },
+    {
+      "routeId": "n_2B_tac_constructor",
+      "entryId": "2B.tac.constructor"
+    },
+    {
+      "routeId": "n_2B_rmk_constructor",
+      "entryId": "2B.rmk.constructor"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_constructor_01",
+      "entryId": "2B.xmp.tactic.constructor-01"
+    },
+    {
+      "routeId": "n_2B_tac_left",
+      "entryId": "2B.tac.left"
+    },
+    {
+      "routeId": "n_2B_rmk_left",
+      "entryId": "2B.rmk.left"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_left_01",
+      "entryId": "2B.xmp.tactic.left-01"
+    },
+    {
+      "routeId": "n_2B_tac_right",
+      "entryId": "2B.tac.right"
+    },
+    {
+      "routeId": "n_2B_rmk_right",
+      "entryId": "2B.rmk.right"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_right_01",
+      "entryId": "2B.xmp.tactic.right-01"
+    },
+    {
+      "routeId": "n_2B_tac_use",
+      "entryId": "2B.tac.use"
+    },
+    {
+      "routeId": "n_2B_rmk_use",
+      "entryId": "2B.rmk.use"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_use_01",
+      "entryId": "2B.xmp.tactic.use-01"
+    },
+    {
+      "routeId": "n_2B_tac_rw",
+      "entryId": "2B.tac.rw"
+    },
+    {
+      "routeId": "n_2B_rmk_rw",
+      "entryId": "2B.rmk.rw"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_rw_01",
+      "entryId": "2B.xmp.tactic.rw-01"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_rw_02",
+      "entryId": "2B.xmp.tactic.rw-02"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_rw_03",
+      "entryId": "2B.xmp.tactic.rw-03"
+    },
+    {
+      "routeId": "n_2B_tac_subst",
+      "entryId": "2B.tac.subst"
+    },
+    {
+      "routeId": "n_2B_rmk_subst",
+      "entryId": "2B.rmk.subst"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_subst_01",
+      "entryId": "2B.xmp.tactic.subst-01"
+    },
+    {
+      "routeId": "n_2B_tac_calc",
+      "entryId": "2B.tac.calc"
+    },
+    {
+      "routeId": "n_2B_rmk_calc",
+      "entryId": "2B.rmk.calc"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_calc_01",
+      "entryId": "2B.xmp.tactic.calc-01"
+    },
+    {
+      "routeId": "n_2B_sec_auto",
+      "entryId": "2B.sec.auto"
+    },
+    {
+      "routeId": "n_2B_tac_norm_num",
+      "entryId": "2B.tac.norm-num"
+    },
+    {
+      "routeId": "n_2B_rmk_norm_num",
+      "entryId": "2B.rmk.norm-num"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_norm_num_01",
+      "entryId": "2B.xmp.tactic.norm-num-01"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_norm_num_02",
+      "entryId": "2B.xmp.tactic.norm-num-02"
+    },
+    {
+      "routeId": "n_2B_tac_simp",
+      "entryId": "2B.tac.simp"
+    },
+    {
+      "routeId": "n_2B_rmk_simp",
+      "entryId": "2B.rmk.simp"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_simp_01",
+      "entryId": "2B.xmp.tactic.simp-01"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_simp_02",
+      "entryId": "2B.xmp.tactic.simp-02"
+    },
+    {
+      "routeId": "n_2B_tac_ring",
+      "entryId": "2B.tac.ring"
+    },
+    {
+      "routeId": "n_2B_rmk_ring",
+      "entryId": "2B.rmk.ring"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_ring_01",
+      "entryId": "2B.xmp.tactic.ring-01"
+    },
+    {
+      "routeId": "n_2B_tac_linarith",
+      "entryId": "2B.tac.linarith"
+    },
+    {
+      "routeId": "n_2B_rmk_linarith",
+      "entryId": "2B.rmk.linarith"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_linarith_01",
+      "entryId": "2B.xmp.tactic.linarith-01"
+    },
+    {
+      "routeId": "n_2B_tac_omega",
+      "entryId": "2B.tac.omega"
+    },
+    {
+      "routeId": "n_2B_rmk_omega",
+      "entryId": "2B.rmk.omega"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_omega_01",
+      "entryId": "2B.xmp.tactic.omega-01"
+    },
+    {
+      "routeId": "n_2B_tac_native_decide",
+      "entryId": "2B.tac.native-decide"
+    },
+    {
+      "routeId": "n_2B_rmk_native_decide",
+      "entryId": "2B.rmk.native-decide"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_native_decide_01",
+      "entryId": "2B.xmp.tactic.native-decide-01"
+    },
+    {
+      "routeId": "n_2B_tac_aesop",
+      "entryId": "2B.tac.aesop"
+    },
+    {
+      "routeId": "n_2B_rmk_aesop",
+      "entryId": "2B.rmk.aesop"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_aesop_01",
+      "entryId": "2B.xmp.tactic.aesop-01"
+    },
+    {
+      "routeId": "n_2B_tac_grind",
+      "entryId": "2B.tac.grind"
+    },
+    {
+      "routeId": "n_2B_rmk_grind",
+      "entryId": "2B.rmk.grind"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_grind_01",
+      "entryId": "2B.xmp.tactic.grind-01"
+    },
+    {
+      "routeId": "n_2B_sec_helpers",
+      "entryId": "2B.sec.helpers"
+    },
+    {
+      "routeId": "n_2B_tac_apply_question",
+      "entryId": "2B.tac.apply-question"
+    },
+    {
+      "routeId": "n_2B_rmk_apply_question",
+      "entryId": "2B.rmk.apply-question"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_apply_02",
+      "entryId": "2B.xmp.tactic.apply-02"
+    },
+    {
+      "routeId": "n_2B_tac_exact_question",
+      "entryId": "2B.tac.exact-question"
+    },
+    {
+      "routeId": "n_2B_rmk_exact_question",
+      "entryId": "2B.rmk.exact-question"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_exact_07",
+      "entryId": "2B.xmp.tactic.exact-07"
+    },
+    {
+      "routeId": "n_2B_tac_simp_question",
+      "entryId": "2B.tac.simp-question"
+    },
+    {
+      "routeId": "n_2B_rmk_simp_question",
+      "entryId": "2B.rmk.simp-question"
+    },
+    {
+      "routeId": "n_2B_xmp_tactic_simp_03",
+      "entryId": "2B.xmp.tactic.simp-03"
+    },
+    {
+      "routeId": "n_2B_sec_termination",
+      "entryId": "2B.sec.termination"
+    },
+    {
+      "routeId": "n_2B_tac_termination_by",
+      "entryId": "2B.tac.termination-by"
+    },
+    {
+      "routeId": "n_2B_rmk_termination_by",
+      "entryId": "2B.rmk.termination-by"
+    },
+    {
+      "routeId": "n_2B_def_countdownByTwo",
+      "entryId": "2B.def.countdownByTwo"
+    },
+    {
+      "routeId": "n_2B_tac_decreasing_by",
+      "entryId": "2B.tac.decreasing-by"
+    },
+    {
+      "routeId": "n_2B_rmk_decreasing_by",
+      "entryId": "2B.rmk.decreasing-by"
+    },
+    {
+      "routeId": "n_2B_def_euclid",
+      "entryId": "2B.def.euclid"
+    }
+  ],
+  "files": {
+    "assets/sjtu-ai4math-logo.svg": "be6c500c26c3b286b1186ada114d6005b7bc28c9eaa3dc46040fbb888663a65f",
+    "fonts/KaTeX_AMS-Regular-BQhdFMY1.woff2": "0cdd387c9590a1a9f9794560022dbb59654a7d86f187aa0c81495ad42d3a7308",
+    "fonts/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2": "de7701e42cf1f4cf0b766c03fb27977207eee2f4fd5d76fa82188406da43ea4c",
+    "fonts/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2": "5d53e70ad607c2352162dec9e0923fb54ecdafaccbf604cd8dcf7d00facb989b",
+    "fonts/KaTeX_Fraktur-Bold-CL6g_b3V.woff2": "74444efd593c005e3f4573b44524704c0af0a937fe911cca9e94068d0d140d3f",
+    "fonts/KaTeX_Fraktur-Regular-CTYiF6lA.woff2": "51814d270d06ff0255dba0799994fa4d8c84d11f09951d47595f4abb1f3602dc",
+    "fonts/KaTeX_Main-Bold-Cx986IdX.woff2": "0f60d1b897938ec918c8ce073092411baf9438f6739465693ff18b0f9d20b021",
+    "fonts/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2": "99cd42a3c072d918f2f44984a807cf7aa16e13545fd0875fc07c6c65f99e715b",
+    "fonts/KaTeX_Main-Italic-NWA7e6Wa.woff2": "97479ca6cce906abc961ecac96faa5f9ca2e61b8e7670d475826bcdee9a7c267",
+    "fonts/KaTeX_Main-Regular-B22Nviop.woff2": "c2342cd8b869e01752a9321dc17213fc40d4d04c79688c1d43f2cf316abd7866",
+    "fonts/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2": "dc47344dbb6cb5b655c8460d561f4df5f501b90c804ad3c6cec65fe322351ab1",
+    "fonts/KaTeX_Math-Italic-t53AETM-.woff2": "7af58c5ec8f132a2ddde9027c6d7814decce4d3b822a11192a42a20e2e973264",
+    "fonts/KaTeX_SansSerif-Bold-D1sUS0GD.woff2": "e99ae51144bf1232efcc1bfe5add36262c6866b0faab24fa75740e1b98577a62",
+    "fonts/KaTeX_SansSerif-Italic-C3H0VqGB.woff2": "00b26ac825e2095056396e0553b8ac26d3f8ad158c3826e28b4c45b385c4714a",
+    "fonts/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2": "68e8c73ef42afd3ccec58bf0fba302cce448938e7fc020a5e31f8a952eee1342",
+    "fonts/KaTeX_Script-Regular-D3wIWfF6.woff2": "036d4e95149b69ff9bcc0cd55771efeb25ffa3947293e69acd78d5ac328c684b",
+    "fonts/KaTeX_Size1-Regular-mCD8mA8B.woff2": "6b47c40166b6dbe21a5dfca7718413f2147fd2399be1ba605d8ad39cedf25dfe",
+    "fonts/KaTeX_Size2-Regular-Dy4dx90m.woff2": "d04c54219f9eaec6d4d4fd42dfb28785975a4794d6b2fc71e566b9cd6db842dd",
+    "fonts/KaTeX_Size3-Regular-gV2CO0n9.woff2": "73d591271b1604960cb10bb90fee021670af7297017e0e98480b332d11f51995",
+    "fonts/KaTeX_Size4-Regular-Dl5lxZxV.woff2": "a4af7d414440a1c1790825cfb700cf9cf43b0f2c4b04f0ebc523011ad9853ec0",
+    "fonts/KaTeX_Typewriter-Regular-CO6r4hn1.woff2": "71d517d67827787cfabdf186914cc3358eda539e37931941f2b2fd4a21f68c0b",
+    "fonts/main-noto-serif-sc-100-400-normal-B08sJxsw.woff2": "5209f425a967af6bd798702015dce9ffecc6d46817385ecd8c4cd5796db02de0",
+    "fonts/main-noto-serif-sc-101-400-normal-BHVnbrAJ.woff2": "fb801f29c9aaacdf009804efe33ce3124f68e7fe4317452c66fa09f0ccd917df",
+    "fonts/main-noto-serif-sc-102-400-normal-No9wpYJV.woff2": "e07bb10e282b122ac725d75cdbdc482f89680cdce71ad773083413f667c42b3b",
+    "fonts/main-noto-serif-sc-103-400-normal-b3eASUCI.woff2": "155371bb76e3093a5872ac26fa1b094490d6e707609c703880c9ce5e85372858",
+    "fonts/main-noto-serif-sc-104-400-normal-CpyjTWhh.woff2": "b7c1d975242591387cebb09a4b96f799270d14430122ae849378b939a465d67c",
+    "fonts/main-noto-serif-sc-105-400-normal-BHHNimkF.woff2": "b05da70aec9bf352fb77b3a07e5477c95587eb836a720943460a49d8fffc84d2",
+    "fonts/main-noto-serif-sc-106-400-normal-Y8T38z4b.woff2": "d422930c709712dd04b9b96bd17c256d38cc87baf2834cf11e73805d396517d4",
+    "fonts/main-noto-serif-sc-107-400-normal-DgdGrCd2.woff2": "03dcbdce956242b7442533a0b4846c2fac6d93a11253bdb05ce0397a927fbbdb",
+    "fonts/main-noto-serif-sc-108-400-normal-DCLtaPv5.woff2": "a9d450627989c9e65347e9ea95146034f15d168b74285e84e8a23d256c3ef28c",
+    "fonts/main-noto-serif-sc-109-400-normal-D28QVX73.woff2": "e16a579d7e3f6ce1bf4244544955cc9960cd2f12f359b279303e68b9f94108f3",
+    "fonts/main-noto-serif-sc-110-400-normal-DjH-orF3.woff2": "cd4f2bb208b10081fac6d57cb1bc470faa60b3914f1f6ffa56840bc72709e8ce",
+    "fonts/main-noto-serif-sc-111-400-normal-B4UjboLF.woff2": "781006ca8d5463354fb6fde2b118875a6da699b1796ce22be3abc003777b6b71",
+    "fonts/main-noto-serif-sc-112-400-normal-Bjzy25E6.woff2": "8b2392a29608a069b9636467ec19a0aed362671d8a4f3dd403b5dd13926cbc2a",
+    "fonts/main-noto-serif-sc-113-400-normal-mBNpFg1t.woff2": "a39469f99e4d3b6e269ff700d8b2edc0bea839d0c46cf43d0c1a1c8a71ad8dc7",
+    "fonts/main-noto-serif-sc-114-400-normal-BByM65_k.woff2": "70c38bdf292733a2167b8091110fc650442b9888cece984552ec6c90775b0e22",
+    "fonts/main-noto-serif-sc-115-400-normal-CuUHU_AH.woff2": "748c49190e86b707a177ae62ee0de98f0dbbe53f4e72347f09e530d3df50eaf8",
+    "fonts/main-noto-serif-sc-116-400-normal-7vFEeE2h.woff2": "e4e121ebf09a9d498d52965c0b85e404426fdfc94cbf633f2a51f65df3b0be6c",
+    "fonts/main-noto-serif-sc-117-400-normal-D2dRkkMi.woff2": "f59d441e134db8751d4438ed90daebae7488c1b514037f738cbf5c0068c5af55",
+    "fonts/main-noto-serif-sc-118-400-normal-Bfp6vhGl.woff2": "4c4cd6ef1dbb4d83c22b0b63664c73f1420c3457c625a5757fc3e591b127bac4",
+    "fonts/main-noto-serif-sc-119-400-normal-DAVjKato.woff2": "7d438466bfc51d35d4a7a0076c428dee5fc5de927f3534456994d46848306077",
+    "fonts/main-noto-serif-sc-21-400-normal-JNqf8ldM.woff2": "198318a26fef917346dd6ed4c78da03f1c5760a04ca865b70f414183890ebba0",
+    "fonts/main-noto-serif-sc-22-400-normal-BA2TjkoN.woff2": "68cf19eb70c5a1cad04ba1eb7b89231843e12aab918963c898b7e744e87e726f",
+    "fonts/main-noto-serif-sc-23-400-normal-CAhTnGkw.woff2": "31deec0c69ec5cb783a3a7746bc03e4cb9fec134303cb5a02170ad1eb65cbd4c",
+    "fonts/main-noto-serif-sc-24-400-normal-DWWywIBv.woff2": "74edac9ceae09ba64ec6c5029a45a768dcfa40a4b6cce51c8b0418150b18c384",
+    "fonts/main-noto-serif-sc-25-400-normal-aJ-D48u6.woff2": "20b2e93a5303c61e6b0e44dfa042f994d82c3ad07f516cf597ed9dcd7beec66e",
+    "fonts/main-noto-serif-sc-26-400-normal-BSzuGlng.woff2": "ee1c7471882eaf5709ad479d849bcc70eef214803732bdfb8dd56fd502e132dd",
+    "fonts/main-noto-serif-sc-27-400-normal-Y6AvStvM.woff2": "04a269894c40bda831579d523c916d592937a71c81be01cc5334368c7b5d5bca",
+    "fonts/main-noto-serif-sc-28-400-normal-CKZqodJm.woff2": "6d6246c6fd7a03e5eee9ccbbae5a0bf67ff9624535575e2a34a7bb1d10b3d862",
+    "fonts/main-noto-serif-sc-29-400-normal-lQml1r-l.woff2": "2b99bfe3ebbbee489e29e6e7261bd43911b4fef73f567c40fb046726d6e1fba5",
+    "fonts/main-noto-serif-sc-30-400-normal-O7SnWSLf.woff2": "d64a121cdd32be0a6e82bec5a9c918893ea9537f07a8bb2f10e6a6654bb2f598",
+    "fonts/main-noto-serif-sc-31-400-normal-BnWU33m3.woff2": "a888b15fb48d49247cfbaee526993f75b6c118573b4a1664560f34998940274c",
+    "fonts/main-noto-serif-sc-32-400-normal-CO8YV2jx.woff2": "286168fa3f8c3ff0393f7be781beedb78d319703458e84233d490b91427cb064",
+    "fonts/main-noto-serif-sc-33-400-normal-D957xGZn.woff2": "668cb1a991576f49da8bb311efb227e888752b05d4a5983d39fab70b5e056d6f",
+    "fonts/main-noto-serif-sc-34-400-normal-D9Gw4Yxs.woff2": "66c35dc76153487b017608264634ea093981271548c59aaa394772ed08c81e73",
+    "fonts/main-noto-serif-sc-35-400-normal-CzfTX1U2.woff2": "550c508b2da2f686ad407094fc61abb8ca4955579a2a651296e4687df991eebd",
+    "fonts/main-noto-serif-sc-36-400-normal-DEHcJKlW.woff2": "e3e327821de43568afbf311b9a52234c28e34a5eac2969d7bde522704dd11ce7",
+    "fonts/main-noto-serif-sc-37-400-normal-4EafqbAq.woff2": "53b49f61dc76d9ec3e302fc4d2e64f1cdf81ec61902f7216e58d68f348972973",
+    "fonts/main-noto-serif-sc-38-400-normal-LeDesBQa.woff2": "0ed19348b9acc0d78251a9358dfcd406f1e68d86ed3d3080dcf2352042e37131",
+    "fonts/main-noto-serif-sc-39-400-normal-DBlVs41-.woff2": "27e6d1a3e8135ddcd1bcac7dd2de96fb40a43efc38d84e414b802e2bafcb66a2",
+    "fonts/main-noto-serif-sc-4-400-normal-DAu3d0JO.woff2": "70b69aa90209f7390276e8dfdf3a8ef8ba20a7845be107ebf0aa988a13e1c6ca",
+    "fonts/main-noto-serif-sc-40-400-normal-BILW2C8W.woff2": "1b5b7e6eba0a7a95f142349a9a214f55c30b025183a5ddc64e364ac6e5472b1e",
+    "fonts/main-noto-serif-sc-41-400-normal-2yGRlUJ3.woff2": "f97119290ab53f15ddcf931c20f89ac822787b59fcbde8439bca09ff9ba77405",
+    "fonts/main-noto-serif-sc-42-400-normal-CB0Lgo3r.woff2": "cb42250607c16ac6644ad2bfcb783c3355ede2fd3834cc2d5cd9c2e343d2ce6d",
+    "fonts/main-noto-serif-sc-43-400-normal-Dz2xm4_C.woff2": "b5b61d6a1157229150ff66d1d2997ff72d0e6722e92e05ba7b3ebe716b36a2da",
+    "fonts/main-noto-serif-sc-44-400-normal-KrwQkVb4.woff2": "c79ebadffcbc63731481f32fb59c3690e776cd0dea07bc3bc920c9f58573f6ea",
+    "fonts/main-noto-serif-sc-45-400-normal-BBf5fyo-.woff2": "674be02327f6b5489cbe5d5cc9c8fddba0604b359523d25d3cc6c98d11742a28",
+    "fonts/main-noto-serif-sc-46-400-normal-Cbp-mPea.woff2": "0931bf8ea722d78f80595729507547f67e4b45344ef8b21381c20cdcd32be2bf",
+    "fonts/main-noto-serif-sc-47-400-normal-BImRhQuH.woff2": "32e1b98d5994e97170930a6f8b833715ea3965dd2a1415fcd6046e96c7055433",
+    "fonts/main-noto-serif-sc-48-400-normal-BL8ILOHO.woff2": "087d91daec02168b3fbfc2d4cbd9dcf9e7b6edf262c2e58abc12ceee4da9253a",
+    "fonts/main-noto-serif-sc-49-400-normal-DzLACwr8.woff2": "85ac5231f9a586452eeb6b5b23198e547dcc18fc6903755d7ff87a2af5bdc7ef",
+    "fonts/main-noto-serif-sc-5-400-normal-CK3rtlrp.woff2": "2aadb8d018f6b5fed489dd9c9ee9c34dee849807504988b806c28122928a78e4",
+    "fonts/main-noto-serif-sc-50-400-normal-CL92OsA_.woff2": "a914664a32e633cb38770d83feb472e90e4ace016ccafb0634f3e4f9ded0d6ec",
+    "fonts/main-noto-serif-sc-51-400-normal-K2vB_amj.woff2": "dadb6d424a9bd9264082a0fcb522cd1b92b74126f6508d125a549c6a52a2f306",
+    "fonts/main-noto-serif-sc-52-400-normal-wKOWPyMs.woff2": "8fbd3b1114a2d94c6166d85dc093f43487def661be2fdc369c4207d1ad681344",
+    "fonts/main-noto-serif-sc-53-400-normal-DdrtXsQA.woff2": "d02835c0c38db449e5bdc5d02e3cdee9a98c5a83668db45ea4c3ceedeb26ad98",
+    "fonts/main-noto-serif-sc-54-400-normal-fnBxYYH4.woff2": "60e16a0fc5c4b5b056334b1217802a9e06d2a56cd37a1b75ac9ed72c63246e8f",
+    "fonts/main-noto-serif-sc-55-400-normal-OR21fGsv.woff2": "9335e5aa92ad3ef8b200e7816cc4a09848be9ead6178319db16c22cd3d63da02",
+    "fonts/main-noto-serif-sc-56-400-normal-VKrJZN4n.woff2": "32064b13723da0ce323148eabc3aead3cd3123d41cb6f020f08c0d818a0d6a5c",
+    "fonts/main-noto-serif-sc-57-400-normal-C6PkFoaO.woff2": "c719a170320a936006435ef3b866396ccb3240f095e6192cd1a9676a45364913",
+    "fonts/main-noto-serif-sc-58-400-normal-DVaM_vK5.woff2": "7db027f41d886ba883186df4149118bf2bd67d209fa20e6b35cead28ec00b2ef",
+    "fonts/main-noto-serif-sc-59-400-normal-CeSjNpXe.woff2": "0a274c73d62090bcd19ce602b70333b65a2949ffff0fb58a9c0764c28b14eea6",
+    "fonts/main-noto-serif-sc-6-400-normal-DeDrdmIV.woff2": "7fab1516bb96d2bfd65f2d67eadb3ba14fe745232f613ea7e7afe7d713556dbf",
+    "fonts/main-noto-serif-sc-60-400-normal-DR2IcHGH.woff2": "c4d16a9a50ff199e3fb1f724e4de1554d988125d5b9f82e2141cd96d8a099009",
+    "fonts/main-noto-serif-sc-61-400-normal-LGTmzE8I.woff2": "bc969adb767ff5c0da99b82efc653ea11200cfec96a7acd21202ad780c24ffdb",
+    "fonts/main-noto-serif-sc-62-400-normal-gHAN3JT1.woff2": "1d36caa852ee220398f9a65ad101a67b24fcc7a113146a0d1db6aa0b1d5d7313",
+    "fonts/main-noto-serif-sc-63-400-normal-Cwyt48md.woff2": "7dbf09a682a4e05cc0de4c5fe93a79d3bdc6053147f29a21f295da532e5e26e5",
+    "fonts/main-noto-serif-sc-64-400-normal-CD7LrdzK.woff2": "1bd4082ecf77eca7a90b0d8f2bed3757ea13268fb0fc693d6b46653aec202e72",
+    "fonts/main-noto-serif-sc-65-400-normal-Bk8SN5Oo.woff2": "8c63cc77c1d220108f47708b6806eddb56da5fddc877d2e8f8bed9f592e82719",
+    "fonts/main-noto-serif-sc-66-400-normal-ZUojjDZW.woff2": "c4afcce8095fbb98cdfee097ffaeacd4f5bf6692d4b655ff3fc82651a8199937",
+    "fonts/main-noto-serif-sc-67-400-normal-C1Oz0pFt.woff2": "4984939cfbdf151cde1a5108c294d310e749def5d91af0f3b1b3495eb963a5fa",
+    "fonts/main-noto-serif-sc-68-400-normal-S26xQ_RE.woff2": "28302b1b4d060e430cf017b32df943740cdfb5a9bc34e4e7f9998db0f5aeb051",
+    "fonts/main-noto-serif-sc-69-400-normal-DrCsa2Sr.woff2": "d4be17011f92b819855d0fc092230c0eb13baad1be4bd17d9b6bd9b0ee8ebd6b",
+    "fonts/main-noto-serif-sc-70-400-normal-DGgPTQo8.woff2": "c257f9abfc8b90cae12396c85fdb0bd69f3feb09ab1935faab7bbc67e4b89512",
+    "fonts/main-noto-serif-sc-71-400-normal-D7w4Y-ST.woff2": "99b09b56badaabbd842d58a0b48905b2b62eb8dc91514081264247c1eebaf102",
+    "fonts/main-noto-serif-sc-72-400-normal-B61Z4Jd8.woff2": "ce64b49d6f171ff84ab32e47a8846dd08c2492fd51ee1f4a010f86e5cd07ef2e",
+    "fonts/main-noto-serif-sc-73-400-normal-CzLG5u1x.woff2": "4f7bc6b6b51b96c5d7107a4b1476e4d6136ff0b019a0adf5c028eec37d3175b7",
+    "fonts/main-noto-serif-sc-74-400-normal-BwgdtHTO.woff2": "7b8dd20a7927cc71bee8cfea0555909a93172423e62b18c84b3dcf9dd173d34b",
+    "fonts/main-noto-serif-sc-75-400-normal-C3rovZtN.woff2": "cd9fa7f2609359dd37475cf265ea8d0e2faa146aff777d0068290e9747ef3017",
+    "fonts/main-noto-serif-sc-76-400-normal-DcB08CFh.woff2": "9513ffe226cad7bee226ef503eeb32733443530882cd9dbd628fcc54ab066533",
+    "fonts/main-noto-serif-sc-77-400-normal-DXmeg5Qd.woff2": "9d298d19de6fa484d53e9fc566a784320d3a34b9dac7f96e60a8e7afd97f28dc",
+    "fonts/main-noto-serif-sc-78-400-normal-Ciy80LJH.woff2": "f1b0994f0406bf6f01cd31ea312cbf2f7e114e224053f6040a57a3720066bbce",
+    "fonts/main-noto-serif-sc-79-400-normal-CAkm9YG8.woff2": "f08743b215770a2dc231e056d0128b8a5b607985e2aabbeb76a19a8d0df455ad",
+    "fonts/main-noto-serif-sc-80-400-normal-2KipuDMA.woff2": "032133d339d581d98340adf3ee80873501ce838abfc0ad9b8d2e87d90cf2f273",
+    "fonts/main-noto-serif-sc-81-400-normal-CtmR2MQs.woff2": "72b8d3706a36345da7281d52b8e1402646541a2a873059443a825e6ac21fe0c9",
+    "fonts/main-noto-serif-sc-82-400-normal-BYIYywsb.woff2": "f2fd134835797badf5edb26ff2513507cf67827b0503b53493c4a07a3543acb1",
+    "fonts/main-noto-serif-sc-83-400-normal-B4MQ4cnu.woff2": "4e65935907a097807dcbc71ab80d0ac87ece0c60e09437c85e79546cc0e3c966",
+    "fonts/main-noto-serif-sc-84-400-normal-Cm-NqSUF.woff2": "1402df11d4b72efc3d38950afb081a291f789972c6b50a61ac5e58f880b71a44",
+    "fonts/main-noto-serif-sc-85-400-normal-D6KUxyVS.woff2": "5f82871e558477f3b479dad534993f2bc5b41aa99cf8bb867a2bbe7ccc3b5569",
+    "fonts/main-noto-serif-sc-86-400-normal-kyGCK9Xe.woff2": "7fb9b4a84d1f9cfbee518496d70c9623218791a07f95ac2a1d4980b46232fc1c",
+    "fonts/main-noto-serif-sc-87-400-normal-Bvr1WGbA.woff2": "038988b9ce055fe20e1fb309fa28e21dd1667460940f492349f3aa3ff4ae37a0",
+    "fonts/main-noto-serif-sc-88-400-normal-w_viLXV3.woff2": "2b9a72a0157f70b1e4b257d0aa13d701597c6ea375063fd3d07f24e4c37673b8",
+    "fonts/main-noto-serif-sc-89-400-normal-lCxVBzmS.woff2": "5bd78eaa1e1a17f42075daf692695bb13f9f246b56283ac1933d79d1f4a5b80f",
+    "fonts/main-noto-serif-sc-90-400-normal-B4B7KpSz.woff2": "092b908aedd7b6519bde9089c1ac420741875099f8289c0f82d546f8324592e9",
+    "fonts/main-noto-serif-sc-91-400-normal-GiFB0QDv.woff2": "b143c83177a86fd18baa9eb9565803a8853406a0d52144d88a0e88ebd632a620",
+    "fonts/main-noto-serif-sc-97-400-normal-XasqyfaD.woff2": "7dff162a55902117310b7b2938d2754df36a2b718499ce7e30bbd73448835680",
+    "fonts/main-noto-serif-sc-98-400-normal-BtKF9ed4.woff2": "7cee9b36e6eceafdf0ac327e8d6b2825b581033460a4c5bfa964f2a2ca23811b",
+    "fonts/main-noto-serif-sc-99-400-normal-CcCfmhcb.woff2": "648e7d3f5a03ba9f9b49804e474220dd155d31e1b2b5b3ee7bd4772717cf3bcf",
+    "fonts/main-noto-serif-sc-cyrillic-400-normal-E6O3Ay2Z.woff2": "22c78938835f757b4b1d2a99cde0fc731c206d5681eb98dd5199bfd600cd9fff",
+    "fonts/main-noto-serif-sc-latin-400-normal-bWtu-bD9.woff2": "af0c95a3e897cfab6a319a789f203dc64b8f81574f8113c7d46240db68c8ff8f",
+    "fonts/main-noto-serif-sc-latin-ext-400-normal-gIH_qXVp.woff2": "ff6d9a53e368c9cb7ef501c7c71bcbc00349c7eb0d7fad0d1ca806f8faa26c7e",
+    "fonts/main-noto-serif-sc-vietnamese-400-normal-BDvw8C8Z.woff2": "992ce1137e064f4ba4384533d84f0a07af2b7ed72e447f632be14cea07c63436",
+    "index.html": "47a7e8856a3b25e63cc1bd3e547a876d9e559545a78a8731a2ec5518eb9aa48e",
+    "popovers.js": "6e71a7957da875066b07e8eccb9da67f3fc1b8848572a1776bae6b282ca200c6"
+  }
+}
