@@ -9,6 +9,7 @@ const inductionExportRoot = resolve('public/summer-school/2026/lectures/inductio
 const curryHowardExportRoot = resolve('public/summer-school/2026/lectures/curry-howard')
 const jixiaProofExportRoot = resolve('public/summer-school/2026/lectures/jixia-proof-exploration')
 const typeclassExportRoot = resolve('public/summer-school/2026/lectures/typeclasses-algebraic-structures')
+const mathlibExplorerRoot = resolve('public/summer-school/2026/lectures/mathlib-explorer')
 
 interface JixiaExportManifest {
   version: number
@@ -223,6 +224,45 @@ describe('3B typeclass hierarchy export', () => {
     for (const [, , startY, , firstControlY, , secondControlY, , endY] of curves) {
       expect(firstControlY).toBe(startY)
       expect(secondControlY).toBe(endY)
+    }
+  })
+})
+
+describe('3A Mathlib Explorer static export', () => {
+  it('ships the preserved precomputed graph and all nested static assets', () => {
+    const html = readFileSync(resolve(mathlibExplorerRoot, 'index.html'), 'utf8')
+    const graphData = readFileSync(resolve(mathlibExplorerRoot, 'data.json'))
+    const clientJavaScript = listFilesRecursively(mathlibExplorerRoot)
+      .filter((file) => file.endsWith('.js'))
+      .map((file) => readFileSync(resolve(mathlibExplorerRoot, file), 'utf8'))
+      .join('\n')
+    const provenance = JSON.parse(readFileSync(resolve(mathlibExplorerRoot, 'data-provenance.json'), 'utf8')) as {
+      sha256: string
+      nodeCount: number
+      edgeCount: number
+      coordinates: string
+    }
+
+    expect(sha256(graphData)).toBe('e9c394c8f8959161253709ab6a69fc07e9f8c8bc11d93413eecb930fd55de0de')
+    expect(provenance).toMatchObject({
+      sha256: 'e9c394c8f8959161253709ab6a69fc07e9f8c8bc11d93413eecb930fd55de0de',
+      nodeCount: 9544,
+      edgeCount: 239427,
+      coordinates: 'precomputed; preserved verbatim',
+    })
+    expect(html).toContain('Mathlib Explorer')
+    expect(clientJavaScript).toContain('Yugu233')
+    expect(clientJavaScript).toContain('https://github.com/Yugu233')
+    expect(clientJavaScript).toContain('https://space.bilibili.com/613069855')
+    expect(clientJavaScript).toContain('https://store.steampowered.com/app/3635130')
+
+    for (const reference of extractLoadReferences(html)) {
+      if (reference.startsWith('data:') || /^(?:https?:|\/\/)/.test(reference)) continue
+      const cleanReference = decodeURIComponent(reference.split(/[?#]/, 1)[0])
+      const target = cleanReference.startsWith('/')
+        ? resolve('public', cleanReference.slice(1))
+        : resolve(mathlibExplorerRoot, cleanReference)
+      expect(existsSync(target)).toBe(true)
     }
   })
 })

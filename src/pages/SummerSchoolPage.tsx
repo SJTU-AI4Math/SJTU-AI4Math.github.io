@@ -233,9 +233,11 @@ export function SummerSchoolPage() {
                   ? '/summer-school/2026/lectures/curry-howard/'
                   : course.id === 'course-2b'
                     ? '/summer-school/2026/lectures/jixia-proof-exploration/'
-                    : course.id === 'course-3b'
-                      ? '/summer-school/2026/lectures/typeclasses-algebraic-structures/'
-                      : null
+                    : course.id === 'course-3a'
+                      ? '/summer-school/2026/lectures/mathlib-explorer/'
+                      : course.id === 'course-3b'
+                        ? '/summer-school/2026/lectures/typeclasses-algebraic-structures/'
+                        : null
 
             return exportedLecturePath ? (
               <a

@@ -1,0 +1,7 @@
+{
+  "source": "public/data.json from commit 00d8a21c0712ed0c8d594aa314897d8a18acda47",
+  "sha256": "e9c394c8f8959161253709ab6a69fc07e9f8c8bc11d93413eecb930fd55de0de",
+  "nodeCount": 9544,
+  "edgeCount": 239427,
+  "coordinates": "precomputed; preserved verbatim"
+}

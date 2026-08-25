@@ -113,6 +113,10 @@ describe('application shell', () => {
       'href',
       '/summer-school/2026/lectures/jixia-proof-exploration/',
     )
+    expect(screen.getByRole('link', { name: /课程 3A · 形式化库/ })).toHaveAttribute(
+      'href',
+      '/summer-school/2026/lectures/mathlib-explorer/',
+    )
     expect(screen.getByRole('link', { name: /课程 3B · 类型类与代数结构/ })).toHaveAttribute(
       'href',
       '/summer-school/2026/lectures/typeclasses-algebraic-structures/',
