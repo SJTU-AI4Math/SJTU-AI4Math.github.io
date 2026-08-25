@@ -98,7 +98,7 @@ export const schedule: ScheduleDay[] = [
   {
     id: 'aug-28',
     date: text('8 月 28 日', 'August 28'),
-    location: text('下院113', 'Science Buildings 5–6, Room 300'),
+    location: text('下院113', 'XiaYuan113'),
     slots: [
       slot(time.morning, 'AI4Math', 'AI4Math'),
       slot(time.afternoon, '元编程', 'Metaprogramming'),
