@@ -8,6 +8,7 @@ const typeTheoryExportRoot = resolve('public/summer-school/2026/lectures/type-th
 const inductionExportRoot = resolve('public/summer-school/2026/lectures/induction')
 const curryHowardExportRoot = resolve('public/summer-school/2026/lectures/curry-howard')
 const jixiaProofExportRoot = resolve('public/summer-school/2026/lectures/jixia-proof-exploration')
+const typeclassExportRoot = resolve('public/summer-school/2026/lectures/typeclasses-algebraic-structures')
 
 interface JixiaExportManifest {
   version: number
@@ -194,6 +195,34 @@ describe('2B Extension HTML export', () => {
       assertExactUniqueIds(variant.body)
       expect(Object.keys(variant.entryTitles).sort()).toEqual(expectedEntries)
       expect(Object.keys(variant.popovers).sort()).toEqual(expectedEntries)
+    }
+  })
+})
+
+describe('3B typeclass hierarchy export', () => {
+  it('ships the complete interactive graph at the stable lecture route', () => {
+    const html = readFileSync(resolve(typeclassExportRoot, 'index.html'), 'utf8')
+
+    expect(html).toContain('<title>3B · 类型类与代数结构 | SJTU AI4Math 2026 暑期学校</title>')
+    expect(html).toContain('href="/summer-school/2026/#courses"')
+    expect(html.match(/<g class="node /g)).toHaveLength(209)
+    expect(html.match(/<g class="lane"/g)).toHaveLength(10)
+    expect(html.match(/class="extension"/g)).toHaveLength(217)
+    expect(html.match(/class="dependency"/g)).toHaveLength(128)
+    expect(html.match(/class="instance"/g)).toHaveLength(37)
+    expect(html).toContain('<svg role="img" aria-labelledby="typeclass-graph-title typeclass-graph-description"')
+    expect(html).toContain('<title id="typeclass-graph-title">')
+    expect(html).toContain('<desc id="typeclass-graph-description">')
+    expect(html.match(/class="graph-node-item"/g)).toHaveLength(209)
+    expect(html.match(/class="graph-edge-item"/g)).toHaveLength(382)
+    expect(html).toContain('grid-template-columns:repeat(auto-fit,minmax(min(100%,130px),1fr))')
+    expect(html).not.toContain('min-width:860px')
+
+    const curves = [...html.matchAll(/<path class="(?:extension|dependency|instance)" d="M ([\d.]+) ([\d.]+) C ([\d.]+) ([\d.]+), ([\d.]+) ([\d.]+), ([\d.]+) ([\d.]+)"/g)]
+    expect(curves).toHaveLength(382)
+    for (const [, , startY, , firstControlY, , secondControlY, , endY] of curves) {
+      expect(firstControlY).toBe(startY)
+      expect(secondControlY).toBe(endY)
     }
   })
 })
