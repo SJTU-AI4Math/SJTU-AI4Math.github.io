@@ -226,6 +226,77 @@ describe('3B typeclass hierarchy export', () => {
       expect(secondControlY).toBe(endY)
     }
   })
+
+  it('zooms the graph around the current viewport center and resets it', () => {
+    const html = readFileSync(resolve(typeclassExportRoot, 'index.html'), 'utf8')
+    const body = html.match(/<body>([\s\S]*)<\/body>/)?.[1]
+    const script = body?.match(/<script>([\s\S]*?)<\/script>/)?.[1]
+    expect(body).toBeDefined()
+    expect(script).toBeDefined()
+    if (!body || !script) return
+
+    document.body.innerHTML = body.replace(/<script>[\s\S]*?<\/script>/, '')
+    window.eval(script)
+    const canvas = document.querySelector<HTMLElement>('.canvas')
+    const svg = document.querySelector<SVGSVGElement>('.canvas svg')
+    const zoomIn = document.querySelector<HTMLButtonElement>('#zoom-in')
+    const zoomOut = document.querySelector<HTMLButtonElement>('#zoom-out')
+    const zoomReset = document.querySelector<HTMLButtonElement>('#zoom-reset')
+    const zoomStatus = document.querySelector<HTMLOutputElement>('#zoom-status')
+
+    expect(canvas).not.toBeNull()
+    expect(svg).not.toBeNull()
+    expect(zoomIn).toHaveAccessibleName('放大图 / Zoom in')
+    expect(zoomOut).toHaveAccessibleName('缩小图 / Zoom out')
+    expect(zoomReset).toHaveAccessibleName('重置缩放 / Reset zoom')
+    expect(zoomStatus).toHaveAttribute('aria-live', 'polite')
+    if (!canvas || !svg || !zoomIn || !zoomOut || !zoomReset || !zoomStatus) return
+
+    Object.defineProperties(canvas, {
+      clientWidth: { configurable: true, value: 1000 },
+      clientHeight: { configurable: true, value: 600 },
+    })
+    canvas.scrollLeft = 200
+    canvas.scrollTop = 100
+
+    zoomIn.click()
+    expect(svg.style.width).toBe('9875px')
+    expect(svg.style.height).toBe('5468.75px')
+    expect(zoomStatus).toHaveTextContent('125%')
+    expect(canvas.scrollLeft).toBe(375)
+    expect(canvas.scrollTop).toBe(200)
+
+    zoomReset.click()
+    expect(svg.style.width).toBe('7900px')
+    expect(svg.style.height).toBe('4375px')
+    expect(zoomStatus).toHaveTextContent('100%')
+
+    zoomOut.click()
+    zoomOut.click()
+    zoomOut.click()
+    expect(svg.style.width).toBe('1975px')
+    expect(svg.style.height).toBe('1093.75px')
+    expect(zoomStatus).toHaveTextContent('25%')
+    expect(zoomOut).toBeDisabled()
+    expect(zoomIn).not.toBeDisabled()
+
+    zoomReset.click()
+    zoomIn.click()
+    zoomIn.click()
+    zoomIn.click()
+    zoomIn.click()
+    expect(svg.style.width).toBe('15800px')
+    expect(svg.style.height).toBe('8750px')
+    expect(zoomStatus).toHaveTextContent('200%')
+    expect(zoomIn).toBeDisabled()
+    expect(zoomOut).not.toBeDisabled()
+
+    zoomReset.click()
+    expect(svg.style.width).toBe('7900px')
+    expect(svg.style.height).toBe('4375px')
+    expect(zoomStatus).toHaveTextContent('100%')
+    document.body.replaceChildren()
+  })
 })
 
 describe('3A Mathlib Explorer static export', () => {
