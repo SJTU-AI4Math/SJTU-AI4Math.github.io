@@ -193,9 +193,24 @@ describe('summer school Plan.md fidelity', () => {
     expect(notes.map((note) => note.zh)).toEqual(parseNotes(plan))
   })
 
+  it('moves the August 28 venue and marker 1 to 下院113', () => {
+    const august28 = schedule.find(({ id }) => id === 'aug-28')
+    expect(august28?.location).toEqual({ zh: '下院113', en: 'Xia Yuan 113' })
+    expect(campusLocations[0]).toEqual({
+      id: 'xia-yuan-113',
+      name: { zh: '下院113', en: 'Xia Yuan 113' },
+      description: {
+        zh: '8 月 28 日上课地点。',
+        en: 'Venue for the August 28 classes.',
+      },
+      x: 21.07,
+      y: 69.04,
+    })
+  })
+
   it('keeps the four measured marker centers in annotated-map order', () => {
     expect(campusLocations.map(({ id, x, y }) => ({ id, x, y }))).toEqual([
-      { id: 'science-buildings', x: 5.76, y: 27.46 },
+      { id: 'xia-yuan-113', x: 21.07, y: 69.04 },
       { id: 'yulan-canteen', x: 26.44, y: 54.16 },
       { id: 'guangbiao-building', x: 37.41, y: 63.89 },
       { id: 'second-dining-building', x: 43.39, y: 70.62 },

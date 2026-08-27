@@ -135,12 +135,12 @@ describe('application shell', () => {
     const venueMarkers = within(venueCard).getAllByRole('button', { name: /查看.+介绍/ })
     expect(venueMarkers).toHaveLength(4)
     expect(venueMarkers.every((marker) => marker.classList.contains('campus-map-marker-bubble'))).toBe(true)
+    expect(venueMarkers[0]).toHaveStyle({ left: '21.07%', top: '69.04%' })
     expect(screen.queryByTestId('campus-location-preview')).not.toBeInTheDocument()
-    await userEvent.hover(within(venueCard).getByRole('button', { name: '查看理科群楼 5-6 号楼介绍' }))
+    await userEvent.hover(within(venueCard).getByRole('button', { name: '查看下院113介绍' }))
     let venuePopover = screen.getByTestId('venue-popover')
     expect(venuePopover).toHaveAttribute('role', 'tooltip')
-    expect(within(venuePopover).getByRole('article', { name: '理科群楼 5-6 号楼' })).not.toHaveTextContent('23 日')
-    expect(within(venuePopover).getByRole('article', { name: '理科群楼 5-6 号楼' })).toHaveTextContent(
+    expect(within(venuePopover).getByRole('article', { name: '下院113' })).toHaveTextContent(
       '8 月 28 日上课地点',
     )
     await userEvent.hover(within(venueCard).getByRole('button', { name: '查看第二餐饮大楼介绍' }))
@@ -188,9 +188,8 @@ describe('application shell', () => {
     expect(within(screen.getByTestId('venue-popover')).getByRole('article', { name: 'Guangbiao Building' })).toHaveTextContent(
       'The main teaching venue',
     )
-    await user.hover(within(venueCard).getByRole('button', { name: 'View details for Science Buildings 5–6' }))
-    expect(within(screen.getByTestId('venue-popover')).getByRole('article', { name: 'Science Buildings 5–6' })).not.toHaveTextContent('August 23')
-    expect(within(screen.getByTestId('venue-popover')).getByRole('article', { name: 'Science Buildings 5–6' })).toHaveTextContent(
+    await user.hover(within(venueCard).getByRole('button', { name: 'View details for Xia Yuan 113' }))
+    expect(within(screen.getByTestId('venue-popover')).getByRole('article', { name: 'Xia Yuan 113' })).toHaveTextContent(
       'Venue for the August 28 classes',
     )
   })

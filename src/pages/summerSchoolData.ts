@@ -98,7 +98,7 @@ export const schedule: ScheduleDay[] = [
   {
     id: 'aug-28',
     date: text('8 月 28 日', 'August 28'),
-    location: text('下院113', 'XiaYuan113'),
+    location: text('下院113', 'Xia Yuan 113'),
     slots: [
       slot(time.morning, 'AI4Math', 'AI4Math'),
       slot(time.afternoon, '元编程', 'Metaprogramming'),
@@ -310,17 +310,17 @@ export const notes = [
   text('除 8.24 晚外，晚间均不强制要求到场；“无穷类型咖啡”暑校会同时在线上进行，学员可与线上社区成员共同结队参与课题、讨论、答疑。', 'Except for the evening of August 24, evening attendance is optional. The Infinite Type Café summer school will also run online, allowing students to team up with online community members for projects, discussion, and Q&A.'),
 ]
 
-// Percent centers measured from the four red rings in the 1823×914 annotated reference.
+// Percent tail-tip centers measured from annotated map references; marker 1 was recalibrated to the user-supplied red ring.
 export const campusLocations: CampusLocation[] = [
   {
-    id: 'science-buildings',
-    name: text('理科群楼 5-6 号楼', 'Science Buildings 5–6'),
+    id: 'xia-yuan-113',
+    name: text('下院113', 'Xia Yuan 113'),
     description: text(
-      '8 月 28 日上课地点。300 房间位于五号楼与六号楼之间的连廊上。',
-      'Venue for the August 28 classes. Room 300 is on the connecting corridor between Buildings 5 and 6.',
+      '8 月 28 日上课地点。',
+      'Venue for the August 28 classes.',
     ),
-    x: 5.76,
-    y: 27.46,
+    x: 21.07,
+    y: 69.04,
   },
   {
     id: 'yulan-canteen',
