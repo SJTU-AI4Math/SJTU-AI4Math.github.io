@@ -243,13 +243,14 @@ describe('application shell', () => {
     )
     expect(card).toHaveTextContent('结构化自然语言文档管理系统。')
     expect(card).toHaveTextContent('针对专业领域的知识管理，通过将专业术语表述为抽象术语宏、将自然语言表述为术语宏语法树，实现知识的严谨记录。')
-    expect(within(card).getByRole('heading', { name: '核心功能：' })).toBeInTheDocument()
-    expect(within(card).getByRole('list', { name: '核心功能：' })).toHaveTextContent('交互式术语语义查询')
-    expect(within(card).getByRole('list', { name: '核心功能：' })).toHaveTextContent('数学公式支持')
-    expect(within(card).getByRole('list', { name: '核心功能：' })).toHaveTextContent('图表与一般前端组件兼容')
-    expect(within(card).getByRole('list', { name: '核心功能：' })).toHaveTextContent('兼容自然语言表达')
-    expect(within(card).getByRole('heading', { name: '应用场景：' })).toBeInTheDocument()
-    expect(within(card).getByRole('list', { name: '应用场景：' })).toHaveTextContent('形式化蓝图')
+    await waitFor(() => expect(card.querySelectorAll('[data-kind="const"]')).toHaveLength(15))
+    expect(within(card).getByRole('heading', { name: '特色功能：' })).toBeInTheDocument()
+    expect(within(card).getByRole('list', { name: '特色功能：' })).toHaveTextContent('交互式术语语义查询')
+    expect(within(card).getByRole('list', { name: '特色功能：' })).toHaveTextContent('完整数学公式支持')
+    expect(within(card).getByRole('list', { name: '特色功能：' })).toHaveTextContent('智能体工具集')
+    expect(within(card).getByRole('heading', { name: '设计应用场景：' })).toBeInTheDocument()
+    expect(within(card).getByRole('list', { name: '设计应用场景：' })).toHaveTextContent('形式化项目蓝图')
+    expect(within(card).getByRole('list', { name: '设计应用场景：' })).toHaveTextContent('智能体报告')
     expect(within(card).getByRole('link', { name: '在 GitHub 查看 SNL Doc' })).toHaveAttribute(
       'href',
       'https://github.com/SJTU-AI4Math/SNL-Doc-Extension',

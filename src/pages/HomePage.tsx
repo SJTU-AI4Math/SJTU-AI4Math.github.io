@@ -1,6 +1,16 @@
-import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
+import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { useTranslation } from 'react-i18next'
+import { FloatingCardPopover } from '../components/FloatingCardPopover'
+import { RichKatexText } from '../components/RichKatexText'
+import type { PopoverShowMode } from '../components/SnlCourseLabel'
+import { SnlDocTermLabel } from '../components/SnlDocTermLabel'
 import { useTheme } from '../theme/theme-context'
+import {
+  localize,
+  snlDocFeatures,
+  snlDocNotice,
+  snlDocScenarios,
+} from './homeSnlDocData'
 
 const STARE_SWITCH_COUNT = 3
 const STARE_SWITCH_WINDOW_MS = 1_000
@@ -10,6 +20,7 @@ const CAT_IMAGE_SOURCES = [
   '/img/找个彩蛋还作弊真无聊.webp',
 ] as const
 const CATALOG_TABS = ['tools', 'papers'] as const
+const SNL_DOC_TERMS = [...snlDocFeatures, ...snlDocScenarios]
 
 type CatalogTab = (typeof CATALOG_TABS)[number]
 
@@ -22,16 +33,43 @@ function GithubIcon() {
 }
 
 export function HomePage() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const language = i18n.resolvedLanguage
   const { theme } = useTheme()
   const isDark = theme === 'dark'
   const [isStareLocked, setIsStareLocked] = useState(false)
   const [areCatsReady, setAreCatsReady] = useState(false)
   const [activeTab, setActiveTab] = useState<CatalogTab>('tools')
+  const [activeDetail, setActiveDetail] = useState<{
+    itemId: string
+    anchor: HTMLElement
+    pinned: boolean
+  } | null>(null)
   const previousTheme = useRef(theme)
   const themeSwitchTimes = useRef<number[]>([])
   const preloadedCats = useRef<HTMLImageElement[]>([])
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([])
+  const activeDetailItem = activeDetail
+    ? SNL_DOC_TERMS.find((item) => item.id === activeDetail.itemId) ?? null
+    : null
+
+  const showDetail = useCallback((
+    itemId: string,
+    anchor: HTMLElement,
+    mode: PopoverShowMode,
+  ) => {
+    setActiveDetail((current) => {
+      if (mode === 'transient' && current?.itemId === itemId && current.pinned) return current
+      if (mode === 'pinned' && current?.itemId === itemId && current.pinned) return null
+      return { itemId, anchor, pinned: mode === 'pinned' }
+    })
+  }, [])
+  const hideDetail = useCallback((itemId: string, force = false) => {
+    setActiveDetail((current) => (
+      current?.itemId === itemId && (force || !current.pinned) ? null : current
+    ))
+  }, [])
+  const dismissDetail = useCallback(() => setActiveDetail(null), [])
 
   useEffect(() => {
     let active = true
@@ -149,18 +187,42 @@ export function HomePage() {
                 <section aria-labelledby="snl-features-title">
                   <h3 id="snl-features-title">{t('home.coreFeatures')}</h3>
                   <ul className="tool-feature-list" aria-label={t('home.coreFeatures')}>
-                    {['semanticQueries', 'mathSupport', 'frontendCompatibility', 'naturalLanguageCompatibility'].map((feature) => (
-                      <li key={feature}><span>{t(`home.${feature}`)}</span><span aria-hidden="true">—</span></li>
+                    {snlDocFeatures.map((item) => (
+                      <li key={item.id}>
+                        <SnlDocTermLabel
+                          description={localize(item.detail, language)}
+                          item={item}
+                          label={localize(item.label, language)}
+                          isOpen={activeDetail?.itemId === item.id}
+                          onHide={hideDetail}
+                          onShow={showDetail}
+                        />
+                      </li>
                     ))}
                   </ul>
                 </section>
                 <section aria-labelledby="snl-scenarios-title">
                   <h3 id="snl-scenarios-title">{t('home.applicationScenarios')}</h3>
-                  <ul aria-label={t('home.applicationScenarios')}>
-                    <li>{t('home.formalBlueprint')}</li>
-                  </ul>
+                  <ol className="tool-feature-list tool-scenario-list" aria-label={t('home.applicationScenarios')}>
+                    {snlDocScenarios.map((item) => (
+                      <li key={item.id}>
+                        <SnlDocTermLabel
+                          description={localize(item.detail, language)}
+                          item={item}
+                          label={localize(item.label, language)}
+                          isOpen={activeDetail?.itemId === item.id}
+                          onHide={hideDetail}
+                          onShow={showDetail}
+                        />
+                      </li>
+                    ))}
+                  </ol>
                 </section>
               </div>
+              <p className="tool-card-note">
+                <span aria-hidden="true">*</span>
+                <em>{localize(snlDocNotice, language)}</em>
+              </p>
               <footer className="tool-card-footer">
                 <a
                   className="tool-github-link"
@@ -173,13 +235,28 @@ export function HomePage() {
                   <span>GitHub</span>
                 </a>
                 <p className="tool-contributors">
-                  <span>{t('home.contributors')}：</span>
+                  <span>{t('home.contributors')} </span>
                   <a href="https://github.com/Fulcrum-Nebula" target="_blank" rel="noreferrer">猫猫🐱</a>
-                  <span>、</span>
+                  <span>{t('home.contributorSeparator')}</span>
                   <a href="https://github.com/subfish-zhou" target="_blank" rel="noreferrer">子鱼🐟</a>
+                  <span>{t('home.contributorSeparator')}Iroha (Subfish's AI Agent)</span>
                 </p>
               </footer>
             </article>
+            {activeDetail && activeDetailItem ? (
+              <FloatingCardPopover
+                anchor={activeDetail.anchor}
+                contentKey={`${activeDetailItem.id}-${language}`}
+                id="snl-doc-detail-popover"
+                onDismiss={dismissDetail}
+                testId="snl-doc-detail-popover"
+              >
+                <div className="snl-doc-detail-card">
+                  <strong>{localize(activeDetailItem.label, language)}</strong>
+                  <p><RichKatexText text={localize(activeDetailItem.detail, language)} /></p>
+                </div>
+              </FloatingCardPopover>
+            ) : null}
         </div>
         <div
           id="home-panel-papers"

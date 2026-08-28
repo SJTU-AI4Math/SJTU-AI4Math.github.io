@@ -6,7 +6,7 @@ import {
   Outlet,
 } from '@tanstack/react-router'
 import { AppLayout } from './layout/AppLayout'
-import { HomePage } from './pages/HomePage'
+import { LazyHomePage } from './pages/LazyHomePage'
 import { LazySummerSchoolPage } from './pages/LazySummerSchoolPage'
 import { LecturePage } from './pages/LecturePage'
 
@@ -15,7 +15,7 @@ const rootRoute = createRootRoute({ component: AppLayout })
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/',
-  component: HomePage,
+  component: LazyHomePage,
 })
 
 const summerSchoolRoute = createRoute({

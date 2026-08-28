@@ -408,7 +408,8 @@ a:focus-visible {
   letter-spacing: 0.03em;
 }
 
-.tool-card-body ul {
+.tool-card-body ul,
+.tool-card-body ol {
   margin: 0;
   padding-left: 1.15rem;
 }
@@ -419,22 +420,105 @@ a:focus-visible {
 
 .tool-feature-list {
   display: grid;
-  gap: 0.42rem;
+  gap: 0;
   list-style: none;
   padding-left: 0 !important;
 }
 
 .tool-feature-list li {
-  display: grid;
-  grid-template-columns: minmax(0, max-content) 1fr;
-  align-items: center;
-  gap: 0.7rem;
+  min-width: 0;
+  padding: 0.36rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 58%, transparent);
 }
 
-.tool-feature-list li > :last-child {
-  overflow: hidden;
-  color: var(--border-strong);
-  white-space: nowrap;
+.tool-feature-list li:last-child {
+  border-bottom: 0;
+}
+
+.snl-doc-term {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  color: var(--text-muted);
+  cursor: pointer;
+  outline: none;
+  transition: color 140ms ease;
+}
+
+.snl-doc-term:hover,
+.snl-doc-term[aria-expanded='true'] {
+  color: var(--text);
+}
+
+.snl-doc-term:focus-visible {
+  border-radius: 4px;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--snl-const) 28%, transparent);
+}
+
+.snl-doc-term .snl-syntax-tree-view {
+  min-width: 0;
+}
+
+.tool-scenario-list {
+  counter-reset: snl-scenario;
+}
+
+.tool-scenario-list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 0.5rem;
+  counter-increment: snl-scenario;
+}
+
+.tool-scenario-list li::before {
+  color: var(--accent);
+  content: counter(snl-scenario) '.';
+  font-variant-numeric: tabular-nums;
+}
+
+.tool-card-note {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0 clamp(1.25rem, 3.2vw, 2rem) clamp(1.25rem, 3.2vw, 2rem);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.tool-card-note > span {
+  color: var(--accent);
+  font-weight: 750;
+}
+
+.snl-doc-detail-card {
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--snl-const);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  color: var(--text);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.snl-doc-detail-card strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--snl-const);
+}
+
+.snl-doc-detail-card p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.inline-katex-logo {
+  display: inline-block;
+  margin: 0 0.12em;
+  color: var(--text);
+  vertical-align: -0.08em;
 }
 
 .tool-card-footer {
