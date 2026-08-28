@@ -221,14 +221,60 @@ describe('application shell', () => {
     expect(backLink).not.toHaveAttribute('aria-current')
   })
 
-  it('renders the day cat screen without a publications section on Home', async () => {
+  it('renders the day cat screen and the SNL Doc tool card', async () => {
+    const user = userEvent.setup()
     render(<App initialEntries={['/']} />)
 
     const screenImage = await screen.findByRole('img', { name: '白日校园猫' })
     expect(screenImage).toHaveAttribute('src', '/img/day_cat.webp')
-    expect(screen.queryByRole('heading', { name: '论文发表' })).not.toBeInTheDocument()
-    expect(screen.queryByRole('article', { name: '论文占位卡片' })).not.toBeInTheDocument()
-    expect(document.querySelector('.publications')).not.toBeInTheDocument()
+
+    const catalog = screen.getByRole('tablist', { name: '成果分类' })
+    const toolsTab = within(catalog).getByRole('tab', { name: '工具' })
+    const papersTab = within(catalog).getByRole('tab', { name: '论文' })
+    expect(toolsTab).toHaveAttribute('aria-selected', 'true')
+    expect(papersTab).toHaveAttribute('aria-selected', 'false')
+    expect(document.querySelector('#home-panel-tools[role="tabpanel"]')).not.toHaveAttribute('hidden')
+    expect(document.querySelector('#home-panel-papers[role="tabpanel"]')).toHaveAttribute('hidden')
+
+    const card = screen.getByRole('article', { name: 'SNL Doc' })
+    expect(within(card).getByRole('img', { name: 'SNL 黑白 λ 猫标志' })).toHaveAttribute(
+      'src',
+      '/brand/snl-logo.svg',
+    )
+    expect(card).toHaveTextContent('结构化自然语言文档管理系统。')
+    expect(card).toHaveTextContent('针对专业领域的知识管理，通过将专业术语表述为抽象术语宏、将自然语言表述为术语宏语法树，实现知识的严谨记录。')
+    expect(within(card).getByRole('heading', { name: '核心功能：' })).toBeInTheDocument()
+    expect(within(card).getByRole('list', { name: '核心功能：' })).toHaveTextContent('交互式术语语义查询')
+    expect(within(card).getByRole('list', { name: '核心功能：' })).toHaveTextContent('数学公式支持')
+    expect(within(card).getByRole('list', { name: '核心功能：' })).toHaveTextContent('图表与一般前端组件兼容')
+    expect(within(card).getByRole('list', { name: '核心功能：' })).toHaveTextContent('兼容自然语言表达')
+    expect(within(card).getByRole('heading', { name: '应用场景：' })).toBeInTheDocument()
+    expect(within(card).getByRole('list', { name: '应用场景：' })).toHaveTextContent('形式化蓝图')
+    expect(within(card).getByRole('link', { name: '在 GitHub 查看 SNL Doc' })).toHaveAttribute(
+      'href',
+      'https://github.com/SJTU-AI4Math/SNL-Doc-Extension',
+    )
+    expect(within(card).getByRole('link', { name: '猫猫🐱' })).toHaveAttribute('href', 'https://github.com/Fulcrum-Nebula')
+    expect(within(card).getByRole('link', { name: '子鱼🐟' })).toHaveAttribute('href', 'https://github.com/subfish-zhou')
+
+    await user.click(papersTab)
+    expect(papersTab).toHaveAttribute('aria-selected', 'true')
+    expect(document.querySelector('#home-panel-tools[role="tabpanel"]')).toHaveAttribute('hidden')
+    expect(document.querySelector('#home-panel-papers[role="tabpanel"]')).not.toHaveAttribute('hidden')
+    expect(screen.queryByRole('article', { name: 'SNL Doc' })).not.toBeInTheDocument()
+    expect(screen.getByRole('tabpanel', { name: '论文' })).toBeEmptyDOMElement()
+
+    fireEvent.keyDown(papersTab, { key: 'ArrowLeft' })
+    expect(toolsTab).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByRole('article', { name: 'SNL Doc' })).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: 'Switch to English' }))
+    const englishCatalog = screen.getByRole('tablist', { name: 'Output categories' })
+    expect(within(englishCatalog).getByRole('tab', { name: 'Tools' })).toHaveAttribute('aria-selected', 'true')
+    expect(within(englishCatalog).getByRole('tab', { name: 'Papers' })).toBeInTheDocument()
+    expect(screen.getByRole('article', { name: 'SNL Doc' })).toHaveTextContent(
+      'A structured natural-language document management system.',
+    )
   })
 
   it('preloads and decodes every Home cat image', async () => {
