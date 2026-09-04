@@ -82,6 +82,21 @@ describe('campus map marker contrast', () => {
   })
 })
 
+describe('primary navigation button row', () => {
+  it('keeps the destination buttons parallel and allows narrow scrolling', () => {
+    const row = block('.nav-button-row')
+    expect(declaration(row, 'display')).toBe('flex')
+    expect(declaration(row, 'flex-wrap')).toBe('nowrap')
+    expect(declaration(row, 'overflow-x')).toBe('auto')
+  })
+
+  it('lays the SNL landing page out as two columns on desktop and one on mobile', () => {
+    expect(declaration(block('.snl-columns'), 'grid-template-columns')).toBe('minmax(0, 1fr) minmax(0, 1fr)')
+    const mobile = block('@media (max-width: 720px)')
+    expect(declaration(blockIn(mobile, '.snl-columns'), 'grid-template-columns')).toBe('1fr')
+  })
+})
+
 describe('summer school side navigation', () => {
   it('matches declaration names exactly', () => {
     expect(() => declaration('margin-bottom: 0.75rem;', 'bottom')).toThrow(

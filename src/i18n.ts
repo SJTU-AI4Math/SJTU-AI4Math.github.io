@@ -9,10 +9,18 @@ const resources = {
     translation: {
       navigation: {
         summerSchool2026: '2026 暑期学校',
+        snl: 'SNL',
         switchToEnglish: 'Switch to English',
         switchToChinese: '切换到中文',
         switchToDark: '切换到深色模式',
         switchToLight: '切换到浅色模式',
+      },
+      snl: {
+        lead: '结构化自然语言文档、工具与形式化知识工程。',
+        documents: '自然语言文档',
+        documentsIntro: '阅读使用文档，或进入以 SNL 编写的知识库。',
+        repositories: 'GitHub 仓库',
+        repositoriesIntro: 'SNL 的基础库、编辑器、智能体工具与 Lean 集成。',
       },
       home: {
         screenLabel: '校园猫屏风',
@@ -81,10 +89,18 @@ const resources = {
     translation: {
       navigation: {
         summerSchool2026: '2026 Summer School',
+        snl: 'SNL',
         switchToEnglish: 'Switch to English',
         switchToChinese: '切换到中文',
         switchToDark: 'Switch to dark mode',
         switchToLight: 'Switch to light mode',
+      },
+      snl: {
+        lead: 'Structured natural-language documents, tools, and formal knowledge engineering.',
+        documents: 'Natural-language documents',
+        documentsIntro: 'Read the usage guides or enter knowledge bases authored in SNL.',
+        repositories: 'GitHub repositories',
+        repositoriesIntro: 'SNL foundations, editor, agent tooling, and Lean integration.',
       },
       home: {
         screenLabel: 'Campus cat screen',

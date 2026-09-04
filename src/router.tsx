@@ -6,7 +6,9 @@ import {
   Outlet,
 } from '@tanstack/react-router'
 import { AppLayout } from './layout/AppLayout'
+import { EmptySnlDocumentPage } from './pages/EmptySnlDocumentPage'
 import { LazyHomePage } from './pages/LazyHomePage'
+import { LazySnlPage } from './pages/LazySnlPage'
 import { LazySummerSchoolPage } from './pages/LazySummerSchoolPage'
 import { LecturePage } from './pages/LecturePage'
 
@@ -36,9 +38,30 @@ const lectureRoute = createRoute({
   component: LecturePage,
 })
 
+const snlRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: 'snl',
+  component: LazySnlPage,
+})
+
+const fulcrumNotesRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: 'snl/documents/fulcrum-notes-snl',
+  component: EmptySnlDocumentPage,
+})
+
+const snl4GaoKaoRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: 'snl/documents/snl4gaokao',
+  component: EmptySnlDocumentPage,
+})
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   summerSchoolRoute.addChildren([summerSchool2026Route, lectureRoute]),
+  snlRoute,
+  fulcrumNotesRoute,
+  snl4GaoKaoRoute,
 ])
 
 export function createAppRouter(initialEntries?: string[]) {

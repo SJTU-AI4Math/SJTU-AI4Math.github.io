@@ -56,13 +56,20 @@ export function Navbar() {
         <span className="brand-title">SJTU AI4Math</span>
       </Link>
 
-      <nav className="nav-links" aria-label="Primary navigation">
+      <nav className="nav-links nav-button-row" aria-label="Primary navigation">
         <Link
           to="/summer-school/2026"
-          className="nav-link"
-          activeProps={{ className: 'nav-link nav-link-active' }}
+          className="nav-link nav-button"
+          activeProps={{ className: 'nav-link nav-button nav-link-active' }}
         >
           {t('navigation.summerSchool2026')}
+        </Link>
+        <Link
+          to="/snl"
+          className="nav-link nav-button"
+          activeProps={{ className: 'nav-link nav-button nav-link-active' }}
+        >
+          {t('navigation.snl')}
         </Link>
       </nav>
 
