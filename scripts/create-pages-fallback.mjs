@@ -7,6 +7,9 @@ const fallbacks = [
   resolve(dist, '404.html'),
   resolve(dist, 'summer-school/index.html'),
   resolve(dist, 'summer-school/2026/index.html'),
+  resolve(dist, 'snl/index.html'),
+  resolve(dist, 'snl/documents/fulcrum-notes-snl/index.html'),
+  resolve(dist, 'snl/documents/snl4gaokao/index.html'),
 ]
 
 for (const destination of fallbacks) {
